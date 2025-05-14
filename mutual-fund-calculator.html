@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DeliFin Mutual Fund Calculator - Calculate potential returns on your mutual fund investments with our easy-to-use calculator.">
+<title>Mutual Fund Calculator | DeliFin - Smart Financial Solutions</title>
+
+<!-- Preload critical assets -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS - Use a production minified version -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Chart.js for visualizations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Consolidated external libraries - Self-hosted for better performance -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+<style>
+/* Base styles */
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --success-500: #22c55e;
+  --warning-500: #f59e0b;
+  --danger-500: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --z-header: 50;
+  --z-dropdown: 40;
+  --z-modal: 60;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  background: white;
+  z-index: 9999;
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+/* Gradient styles */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card interactions */
+.card-hover {
+  transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Navigation styles */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-600);
+  transition: width var(--transition-normal) ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Dropdown menu */
+.dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all var(--transition-normal) ease;
+}
+
+.dropdown-container:hover .dropdown,
+.dropdown-container:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Dark mode transitions */
+html {
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+/* Accordion styles */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 500px;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Calculator specific styles */
+.calculator-card {
+  transition: all var(--transition-normal) ease;
+}
+
+.calculator-card:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.mf-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.mf-table th {
+  background-color: var(--primary-600);
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  padding: 1rem;
+}
+
+.mf-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.mf-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mf-table tr:nth-child(even) {
+  background-color: var(--gray-50);
+}
+
+.mf-table tr:hover {
+  background-color: var(--primary-50);
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: var(--gray-200);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-600);
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--primary-700);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary-600);
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: var(--primary-700);
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+  
+  .mobile-text-center {
+    text-align: center;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
+  
+  .mobile-py {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-8);
+  }
+  
+  .mobile-mt {
+    margin-top: var(--spacing-6);
+  }
+  
+  /* Improved mobile navigation */
+  .mobile-nav-container {
+    height: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease;
+  }
+  
+  .mobile-nav-container.open {
+    max-height: 100vh;
+  }
+}
+</style>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        blue: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8'
+        },
+        green: {
+          500: '#22c55e',
+          600: '#16a34a'
+        }
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-white dark:bg-gray-900">
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+
+<!-- Navigation -->
+<nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex justify-between h-16 md:h-20">
+    <div class="flex items-center">
+      <div class="flex-shrink-0 flex items-center">
+        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+        <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">DeliFin</span>
+      </div>
+    </div>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center justify-center flex-1">
+      <div class="flex space-x-8" role="menubar">
+        <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+        <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+        <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+        <a href="mutual-fund-calculator.html" class="nav-link text-blue-600 dark:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem" aria-current="page">MF Calculator</a>
+        
+        <!-- Dropdown Menu -->
+        <div class="dropdown-container relative" role="menuitem">
+          <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+            More
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Investments</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Retirement Planning</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tax Saving</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Financial Advisory</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center">
+      <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Get Started
+      </button>
+      
+      <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      
+      <!-- Mobile menu button -->
+      <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile menu -->
+<div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+  <div class="px-4 pt-3 pb-4 space-y-3">
+    <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
+    <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+    <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+    <a href="mutual-fund-calculator.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800" role="menuitem" aria-current="page">MF Calculator</a>
+    
+    <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
+        More
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300" id="mobile-dropdown" role="menu">
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Investments</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Retirement Planning</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Tax Saving</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Financial Advisory</a>
+      </div>
+    </div>
+    
+    <div class="pt-2">
+      <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Get Started
+      </a>
+    </div>
+  </div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-28" id="main-content">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-aos="fade-up">
+      <span class="block">Mutual Fund</span>
+      <span class="block">Return Calculator</span>
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
+      Plan your investments with confidence. Calculate potential returns on mutual funds and make informed decisions for your financial future.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+      <a href="#calculator" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-base font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 text-center">
+        Start Calculating
+      </a>
+      <a href="#how-it-works" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-md text-base font-medium transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        How It Works
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Calculator Section -->
+<section id="calculator" class="py-20 bg-white dark:bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Investment Planning</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      Mutual Fund <span class="text-blue-600 dark:text-blue-400">Return Calculator</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Estimate your potential returns and plan your investments with confidence
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Calculator Form -->
+    <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8" data-aos="fade-up">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Calculate Your Returns</h3>
+      
+      <form id="calculator-form" class="space-y-6">
+        <!-- Investment Type -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Investment Type</label>
+          <div class="flex space-x-4">
+            <label class="flex items-center">
+              <input type="radio" name="investmentType" value="lumpsum" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">Lump Sum</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="investmentType" value="sip" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">SIP (Monthly)</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Fund Selection -->
+        <div>
+          <label for="fund" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Fund</label>
+          <div class="relative">
+            <select id="fund" name="fund" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <option value="equity-large">Equity Large Cap - 12%</option>
+              <option value="equity-mid">Equity Mid Cap - 14%</option>
+              <option value="equity-small">Equity Small Cap - 16%</option>
+              <option value="hybrid">Hybrid Fund - 10%</option>
+              <option value="debt">Debt Fund - 8%</option>
+              <option value="index">Index Fund - 11%</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Investment Amount -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Amount ($)</label>
+            <span id="amount-value" class="text-sm text-gray-500 dark:text-gray-400">$10,000</span>
+          </div>
+          <input type="range" id="amount" name="amount" min="1000" max="1000000" step="1000" value="10000" class="w-full">
+        </div>
+        
+        <!-- Investment Duration -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label for="duration" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Duration (Years)</label>
+            <span id="duration-value" class="text-sm text-gray-500 dark:text-gray-400">5 years</span>
+          </div>
+          <input type="range" id="duration" name="duration" min="1" max="30" step="1" value="5" class="w-full">
+        </div>
+        
+        <!-- Expected Return Rate (Optional) -->
+        <div id="custom-return-container" class="hidden">
+          <div class="flex justify-between items-center mb-2">
+            <label for="customReturn" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Expected Return Rate (%)</label>
+            <span id="custom-return-value" class="text-sm text-gray-500 dark:text-gray-400">12%</span>
+          </div>
+          <input type="range" id="customReturn" name="customReturn" min="1" max="30" step="0.5" value="12" class="w-full">
+        </div>
+        
+        <!-- Custom Return Toggle -->
+        <div class="flex items-center">
+          <input id="custom-return-toggle" name="custom-return-toggle" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+          <label for="custom-return-toggle" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+            Use custom expected return rate
+          </label>
+        </div>
+        
+        <!-- Tax Rate (Optional) -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label for="taxRate" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tax Rate (%)</label>
+            <span id="tax-rate-value" class="text-sm text-gray-500 dark:text-gray-400">20%</span>
+          </div>
+          <input type="range" id="taxRate" name="taxRate" min="0" max="40" step="1" value="20" class="w-full">
+        </div>
+        
+        <div class="pt-4">
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Calculate Returns
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Results Card -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Projected Returns</h3>
+      
+      <div id="results-container">
+        <!-- Initial Investment -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Initial Investment</p>
+          <p id="initial-investment" class="text-2xl font-bold text-gray-900 dark:text-white">$10,000.00</p>
+        </div>
+        
+        <!-- Expected Return Rate -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Expected Return Rate</p>
+          <p id="return-rate" class="text-xl font-bold text-gray-900 dark:text-white">12.0%</p>
+        </div>
+        
+        <!-- Returns Earned -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Returns Earned</p>
+          <p id="returns-earned" class="text-2xl font-bold text-green-600 dark:text-green-400">$7,762.34</p>
+        </div>
+        
+        <!-- Tax on Returns -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Tax on Returns</p>
+          <p id="tax-amount" class="text-xl font-bold text-red-600 dark:text-red-400">$1,552.47</p>
+        </div>
+        
+        <!-- Final Amount -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Final Amount</p>
+          <p id="final-amount" class="text-3xl font-bold text-blue-600 dark:text-blue-400">$16,209.87</p>
+        </div>
+        
+        <!-- Chart -->
+        <div class="mt-8">
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Growth Projection</p>
+          <div class="h-64">
+            <canvas id="growth-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fund Comparison Table -->
+  <div class="mt-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mutual Fund Types Comparison</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="mf-table w-full">
+        <thead>
+          <tr>
+            <th>Fund Type</th>
+            <th>Average Return</th>
+            <th>Risk Level</th>
+            <th>Recommended Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-medium">Equity Large Cap</td>
+            <td class="text-green-600 dark:text-green-400">12%</td>
+            <td>Moderate to High</td>
+            <td>5+ years</td>
+          </tr>
+          <tr>
+            <td class="font-medium">Equity Mid Cap</td>
+            <td class="text-green-600 dark:text-green-400">14%</td>
+            <td>High</td>
+            <td>7+ years</td>
+          </tr>
+          <tr>
+            <td class="font-medium">Equity Small Cap</td>
+            <td class="text-green-600 dark:text-green-400">16%</td>
+            <td>Very High</td>
+            <td>10+ years</td>
+          </tr>
+          <tr>
+            <td class="font-medium">Hybrid Fund</td>
+            <td class="text-green-600 dark:text-green-400">10%</td>
+            <td>Moderate</td>
+            <td>3-5 years</td>
+          </tr>
+          <tr>
+            <td class="font-medium">Debt Fund</td>
+            <td class="text-green-600 dark:text-green-400">8%</td>
+            <td>Low to Moderate</td>
+            <td>1-3 years</td>
+          </tr>
+          <tr>
+            <td class="font-medium">Index Fund</td>
+            <td class="text-green-600 dark:text-green-400">11%</td>
+            <td>Moderate</td>
+            <td>5+ years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-20 bg-gray-50 dark:bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Understanding the Process</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      How the <span class="text-blue-600 dark:text-blue-400">Calculator Works</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Learn about the formulas and calculations behind our mutual fund return projections
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div data-aos="fade-right">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Calculation Formulas</h3>
+        
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Lump Sum Investment</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">A = P × (1 + r)^t</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                A = Final amount<br>
+                P = Principal (initial investment)<br>
+                r = Annual rate of return (in decimal)<br>
+                t = Time period in years
+              </p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Systematic Investment Plan (SIP)</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">A = P × ((1 + r)^n - 1) / r × (1 + r)</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                A = Final amount<br>
+                P = Monthly investment amount<br>
+                r = Monthly rate of return (annual rate / 12, in decimal)<br>
+                n = Total number of payments (time in years × 12)
+              </p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Tax Calculation</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">Tax = (Final Amount - Total Investment) × Tax Rate</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                Final Amount = Value after applying the return rate<br>
+                Total Investment = Sum of all investments made<br>
+                Tax Rate = Your applicable tax rate (in decimal)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div data-aos="fade-left">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Important Considerations</h3>
+        
+        <ul class="space-y-4">
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Market Volatility:</strong> Mutual fund returns are subject to market risks. The calculator uses average expected returns, but actual returns may vary significantly based on market conditions.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Time Horizon:</strong> Longer investment periods tend to smooth out market fluctuations. Short-term investments in equity funds can be particularly volatile.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Tax Implications:</strong> Different mutual funds have different tax treatments. Equity funds held for more than one year may have lower tax rates than short-term holdings or debt funds.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Expense Ratio:</strong> The calculator does not account for fund expense ratios, which can reduce your effective returns. Different funds have different expense structures.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Inflation Impact:</strong> The calculator does not adjust for inflation. Consider the "real rate of return" (return rate minus inflation rate) for more accurate long-term planning.</span>
+          </li>
+        </ul>
+        
+        <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-3" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              This calculator is for educational purposes only. Past performance is not indicative of future returns. Consult with a financial advisor before making investment decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-20 bg-white dark:bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Common Questions</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      Frequently Asked <span class="text-blue-600 dark:text-blue-400">Questions</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Everything you need to know about mutual fund calculations
+    </p>
+  </div>
+  
+  <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+    <div class="space-y-6">
+      <!-- FAQ Item 1 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What is a Mutual Fund?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            A mutual fund is a professionally managed investment vehicle that pools money from multiple investors to purchase securities like stocks, bonds, and other assets. When you invest in a mutual fund, you're buying units or shares of the fund, which represent a portion of the fund's portfolio. Mutual funds are managed by professional fund managers who make investment decisions based on the fund's objectives. They offer diversification, professional management, and liquidity, making them accessible to individual investors who may not have the time, expertise, or resources to manage their own portfolios effectively.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 2 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What is the difference between Lump Sum and SIP investments?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Lump Sum investment involves investing a large amount of money all at once in a mutual fund. This approach can be beneficial when markets are expected to rise, as your entire investment can capitalize on the growth. However, it also carries the risk of market timing - if you invest just before a market downturn, your entire investment is exposed to the decline.
+            <br><br>
+            Systematic Investment Plan (SIP) involves investing a fixed amount regularly (usually monthly) over a period of time. This approach offers the benefit of rupee-cost averaging, where you buy more units when prices are low and fewer when prices are high, potentially reducing the average cost per unit over time. SIPs also help in building a disciplined investment habit and are suitable for investors who may not have a large sum to invest at once but can commit to regular investments.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 3 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">How are mutual fund returns calculated?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Mutual fund returns are typically calculated using the Compound Annual Growth Rate (CAGR) for lump sum investments and the Extended Internal Rate of Return (XIRR) for SIP investments.
+            <br><br>
+            For lump sum investments, the formula is: CAGR = (Final Value / Initial Investment)^(1/n) - 1, where n is the number of years.
+            <br><br>
+            For SIP investments, the calculation is more complex as it needs to account for multiple cash flows at different times. The XIRR method is used, which finds the rate at which the net present value of all cash flows equals zero.
+            <br><br>
+            Mutual fund returns are also often presented as absolute returns (total percentage gain or loss) for periods less than one year, and annualized returns for periods greater than one year to provide a standardized comparison.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 4 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What are the different types of mutual funds?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Mutual funds are categorized based on their investment objectives, asset classes, and risk profiles:
+            <br><br>
+            <strong>Equity Funds:</strong> Invest primarily in stocks. They are further classified as Large Cap (established companies), Mid Cap (medium-sized companies), Small Cap (smaller companies), and Sector-specific funds.
+            <br><br>
+            <strong>Debt Funds:</strong> Invest in fixed-income securities like government bonds, corporate bonds, and money market instruments. They are generally less risky than equity funds but offer lower potential returns.
+            <br><br>
+            <strong>Hybrid Funds:</strong> Invest in a mix of equity and debt instruments, offering a balance between risk and return. Examples include balanced funds, equity-oriented hybrid funds, and debt-oriented hybrid funds.
+            <br><br>
+            <strong>Index Funds:</strong> Passively managed funds that aim to replicate the performance of a specific market index like the S&P 500 or NIFTY 50.
+            <br><br>
+            <strong>Specialty Funds:</strong> Include sector-specific funds, international funds, and thematic funds that focus on specific investment themes or sectors.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 5 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">How are mutual funds taxed?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Taxation of mutual funds varies by country and depends on the type of fund and holding period. In general:
+            <br><br>
+            <strong>Equity Funds:</strong> In many countries, long-term capital gains (typically holdings over 1 year) are taxed at a lower rate than short-term gains. Some countries also have tax-free thresholds for long-term equity gains.
+            <br><br>
+            <strong>Debt Funds:</strong> Often taxed based on your income tax bracket for short-term gains, while long-term gains may be taxed at a fixed rate with indexation benefits in some countries.
+            <br><br>
+            <strong>Dividend Distribution:</strong> Dividends from mutual funds are typically taxable as income in the year they are received.
+            <br><br>
+            <strong>Tax-Advantaged Accounts:</strong> Many countries offer tax-advantaged accounts (like 401(k)s, IRAs in the US, or ISAs in the UK) where mutual fund investments can grow tax-deferred or tax-free.
+            <br><br>
+            It's important to consult with a tax professional for specific advice based on your country's tax laws and your personal financial situation.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 6 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What factors should I consider when choosing a mutual fund?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            When selecting a mutual fund, consider these key factors:
+            <br><br>
+            <strong>Investment Objectives:</strong> Align the fund's objectives with your financial goals, whether it's growth, income, or preservation of capital.
+            <br><br>
+            <strong>Risk Tolerance:</strong> Assess your comfort with market fluctuations and choose funds that match your risk profile.
+            <br><br>
+            <strong>Time Horizon:</strong> Consider how long you plan to stay invested. Generally, longer time horizons can accommodate higher-risk equity funds.
+            <br><br>
+            <strong>Fund Performance:</strong> Evaluate the fund's historical performance compared to its benchmark and peer group, but remember that past performance doesn't guarantee future results.
+            <br><br>
+            <strong>Expense Ratio:</strong> Lower expense ratios mean more of your money is actually invested. Compare expense ratios within the same fund category.
+            <br><br>
+            <strong>Fund Manager Experience:</strong> For actively managed funds, the experience and track record of the fund manager can be important.
+            <br><br>
+            <strong>Fund Size:</strong> Very large funds might face challenges in maintaining performance, while very small funds might have higher expense ratios or liquidity issues.
+            <br><br>
+            <strong>Tax Efficiency:</strong> Consider how tax-efficient the fund is, especially for taxable accounts. Index funds tend to be more tax-efficient than actively managed funds.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden" data-aos="fade-up">
+    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+    
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
+      <div class="mb-8 md:mb-0 md:mr-8 text-center md:text-left">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Start Investing?</h2>
+        <p class="text-blue-100 text-lg max-w-2xl">
+          Use our calculator to plan your investments, then take the next step toward financial security with DeliFin's diverse mutual fund options.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#calculator" class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg text-base font-medium shadow-lg transition-all whitespace-nowrap flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+          Calculate Returns
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="#" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-lg text-base font-medium transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+          Speak to an Advisor
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white" aria-labelledby="footer-heading">
+<h2 id="footer-heading" class="sr-only">Footer</h2>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <!-- Company Info -->
+    <div class="col-span-1 md:col-span-1">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+        <span class="ml-2 text-xl font-bold">DeliFin</span>
+      </div>
+      <p class="text-gray-400 mb-6">
+        Smart financial solutions for a secure future. Invest wisely, grow steadily.
+      </p>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Investments</a></li>
+        <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+        <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposits</a></li>
+      </ul>
+    </div>
+    
+    <!-- Legal -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Legal</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Disclaimer</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Security</a></li>
+      </ul>
+    </div>
+    
+    <!-- Contact -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Contact Us</h3>
+      <ul class="space-y-2">
+        <li class="flex items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
+        </li>
+        <li class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span class="text-gray-400">+1 (555) 123-4567</span>
+        </li>
+        <li class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="text-gray-400">support@delifin.com</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+      &copy; 2024 DeliFin. All rights reserved.
+    </p>
+    <div class="flex space-x-6">
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize AOS animations with reduced motion preference check
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  AOS.init({
+    once: true,
+    duration: prefersReducedMotion ? 0 : 800,
+    easing: 'ease-out-cubic',
+    disable: prefersReducedMotion ? true : 'mobile'
+  });
+  
+  // Mobile menu toggle with improved accessibility
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', function() {
+      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !expanded);
+      mobileMenu.classList.toggle('hidden');
+      
+      // Add slide animation
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          mobileMenu.style.opacity = '1';
+          mobileMenu.style.transform = 'translateY(0)';
+        }, 10);
+      }
+    });
+  }
+  
+  // Mobile dropdown toggle with improved accessibility
+  const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
+  const mobileDropdown = document.getElementById('mobile-dropdown');
+  const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
+  
+  if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
+    mobileDropdownButton.addEventListener('click', function() {
+      const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
+      mobileDropdownButton.setAttribute('aria-expanded', !expanded);
+      mobileDropdown.classList.toggle('hidden');
+      
+      if (!mobileDropdown.classList.contains('hidden')) {
+        mobileDropdownIcon.style.transform = 'rotate(180deg)';
+        mobileDropdown.style.maxHeight = '0';
+        setTimeout(() => {
+          mobileDropdown.style.maxHeight = mobileDropdown.scrollHeight + 'px';
+        }, 10);
+      } else {
+        mobileDropdownIcon.style.transform = 'rotate(0)';
+        mobileDropdown.style.maxHeight = '0';
+      }
+    });
+  }
+  
+  // Dark mode toggle with improved accessibility and user preference
+  const darkModeToggle = document.querySelector('button[aria-label="Toggle dark mode"]');
+  
+  if (darkModeToggle) {
+    // Check for system preference
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Check for saved preference or use system preference
+    if (localStorage.getItem('darkMode') === 'enabled' || (prefersDarkMode && localStorage.getItem('darkMode') === null)) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    darkModeToggle.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  }
+  
+  // Accordion functionality
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const accordionItem = header.parentElement;
+      const accordionContent = header.nextElementSibling;
+      const isActive = accordionItem.classList.contains('active');
+      
+      // Close all accordions
+      document.querySelectorAll('.accordion-item').forEach(item => {
+        item.classList.remove('active');
+        item.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+      });
+      
+      // If the clicked accordion wasn't active, open it
+      if (!isActive) {
+        accordionItem.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      
+      if (href !== '#') {
+        e.preventDefault();
+        
+        const target = document.querySelector(href);
+        if (target) {
+          // Use smooth scrolling only if user hasn't set reduced motion preference
+          if (!prefersReducedMotion) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          } else {
+            target.scrollIntoView();
+          }
+          
+          // Update focus for accessibility
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        }
+      }
+    });
+  });
+  
+  // Custom return rate toggle
+  const customReturnToggle = document.getElementById('custom-return-toggle');
+  const customReturnContainer = document.getElementById('custom-return-container');
+  
+  if (customReturnToggle && customReturnContainer) {
+    customReturnToggle.addEventListener('change', function() {
+      if (this.checked) {
+        customReturnContainer.classList.remove('hidden');
+      } else {
+        customReturnContainer.classList.add('hidden');
+      }
+    });
+  }
+  
+  // Fund data
+  const fundData = {
+    'equity-large': { name: 'Equity Large Cap', rate: 12.0 },
+    'equity-mid': { name: 'Equity Mid Cap', rate: 14.0 },
+    'equity-small': { name: 'Equity Small Cap', rate: 16.0 },
+    'hybrid': { name: 'Hybrid Fund', rate: 10.0 },
+    'debt': { name: 'Debt Fund', rate: 8.0 },
+    'index': { name: 'Index Fund', rate: 11.0 }
+  };
+  
+  // Calculator functionality
+  const calculatorForm = document.getElementById('calculator-form');
+  const amountSlider = document.getElementById('amount');
+  const amountValue = document.getElementById('amount-value');
+  const durationSlider = document.getElementById('duration');
+  const durationValue = document.getElementById('duration-value');
+  const customReturnSlider = document.getElementById('customReturn');
+  const customReturnValue = document.getElementById('custom-return-value');
+  const taxRateSlider = document.getElementById('taxRate');
+  const taxRateValue = document.getElementById('tax-rate-value');
+  const fundSelect = document.getElementById('fund');
+  
+  // Initialize chart
+  let growthChart;
+  
+  // Format currency
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+  }
+  
+  // Update sliders display values
+  amountSlider.addEventListener('input', function() {
+    amountValue.textContent = formatCurrency(this.value);
+  });
+  
+  durationSlider.addEventListener('input', function() {
+    durationValue.textContent = `${this.value} ${this.value === '1' ? 'year' : 'years'}`;
+  });
+  
+  customReturnSlider.addEventListener('input', function() {
+    customReturnValue.textContent = `${this.value}%`;
+  });
+  
+  taxRateSlider.addEventListener('input', function() {
+    taxRateValue.textContent = `${this.value}%`;
+  });
+  
+  // Calculate mutual fund returns
+  function calculateMFReturns(principal, rate, time, isSIP, sipAmount) {
+    // Convert percentage to decimal
+    rate = rate / 100;
+    
+    let finalAmount = 0;
+    let totalInvestment = 0;
+    
+    if (isSIP) {
+      // SIP calculation
+      const monthlyRate = rate / 12;
+      const months = time * 12;
+      
+      // Formula: P × ((1 + r)^n - 1) / r × (1 + r)
+      finalAmount = sipAmount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+      totalInvestment = sipAmount * months;
+    } else {
+      // Lump sum calculation
+      finalAmount = principal * Math.pow(1 + rate, time);
+      totalInvestment = principal;
+    }
+    
+    const returns = finalAmount - totalInvestment;
+    
+    return {
+      finalAmount: finalAmount,
+      returns: returns,
+      totalInvestment: totalInvestment
+    };
+  }
+  
+  // Generate time-based data for chart
+  function generateTimeData(principal, rate, maxTime, isSIP, sipAmount) {
+    const data = [];
+    const timePoints = Math.min(maxTime * 2, 30); // Number of points to plot
+    const timeStep = maxTime / timePoints;
+    
+    for (let i = 0; i <= timePoints; i++) {
+      const time = i * timeStep;
+      const result = calculateMFReturns(principal, rate, time, isSIP, sipAmount);
+      data.push({ time, value: result.finalAmount, investment: result.totalInvestment });
+    }
+    
+    return data;
+  }
+  
+  // Update chart
+  function updateChart(timeData) {
+    const ctx = document.getElementById('growth-chart').getContext('2d');
+    
+    // Destroy previous chart if it exists
+    if (growthChart) {
+      growthChart.destroy();
+    }
+    
+    const times = timeData.map(data => data.time.toFixed(1));
+    const values = timeData.map(data => data.value);
+    const investments = timeData.map(data => data.investment);
+    
+    growthChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: times,
+        datasets: [
+          {
+            label: 'Investment Value',
+            data: values,
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'Amount Invested',
+            data: investments,
+            borderColor: '#9ca3af',
+            backgroundColor: 'rgba(156, 163, 175, 0.1)',
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0.1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time (Years)'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Value ($)'
+            },
+            ticks: {
+              callback: function(value) {
+                if (value >= 1000000) {
+                  return '$' + (value / 1000000).toFixed(1) + 'M';
+                } else if (value >= 1000) {
+                  return '$' + (value / 1000).toFixed(1) + 'K';
+                }
+                return '$' + value;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  // Form submission
+  calculatorForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const investmentType = document.querySelector('input[name="investmentType"]:checked').value;
+    const amount = parseFloat(amountSlider.value);
+    const duration = parseFloat(durationSlider.value);
+    const taxRate = parseFloat(taxRateSlider.value);
+    const isSIP = investmentType === 'sip';
+    const sipAmount = isSIP ? amount : 0;
+    const lumpSumAmount = isSIP ? 0 : amount;
+    
+    // Get rate based on fund selection or custom rate
+    let rate;
+    let fundName;
+    
+    if (customReturnToggle.checked) {
+      rate = parseFloat(customReturnSlider.value);
+      fundName = 'Custom';
+    } else {
+      const selectedFund = fundSelect.value;
+      rate = fundData[selectedFund].rate;
+      fundName = fundData[selectedFund].name;
+    }
+    
+    // Calculate returns
+    const result = calculateMFReturns(lumpSumAmount, rate, duration, isSIP, sipAmount);
+    const finalAmount = result.finalAmount;
+    const returns = result.returns;
+    const totalInvestment = result.totalInvestment;
+    const taxAmount = (returns * taxRate) / 100;
+    const afterTaxAmount = finalAmount - taxAmount;
+    
+    // Update results
+    document.getElementById('initial-investment').textContent = formatCurrency(totalInvestment);
+    document.getElementById('return-rate').textContent = `${rate.toFixed(1)}%`;
+    document.getElementById('returns-earned').textContent = formatCurrency(returns);
+    document.getElementById('tax-amount').textContent = formatCurrency(taxAmount);
+    document.getElementById('final-amount').textContent = formatCurrency(afterTaxAmount);
+    
+    // Generate and update chart
+    const timeData = generateTimeData(lumpSumAmount, rate, duration, isSIP, sipAmount);
+    updateChart(timeData);
+  });
+  
+  // Initialize with default values
+  const defaultRate = 12.0; // Equity Large Cap rate
+  const defaultDuration = 5; // 5 years
+  const timeData = generateTimeData(10000, defaultRate, defaultDuration, false, 0);
+  updateChart(timeData);
+  
+  // Trigger calculation on page load
+  calculatorForm.dispatchEvent(new Event('submit'));
+});
+</script>
+</body>
+</html>

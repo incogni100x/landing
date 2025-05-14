@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Elite Mutual Fund - Smart financial solutions for a secure future. Invest wisely, grow steadily.">
+  <title>Elite Mutual Fund - Smart Financial Solutions</title>
+  
+  <!-- Preload critical assets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS - Use a production minified version -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Consolidated external libraries - Self-hosted for better performance -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  
+  <style>
+    /* Base styles */
+    :root {
+      --primary-50: #eff6ff;
+      --primary-100: #dbeafe;
+      --primary-500: #3b82f6;
+      --primary-600: #2563eb;
+      --primary-700: #1d4ed8;
+      --success-500: #22c55e;
+      --warning-500: #f59e0b;
+      --danger-500: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --spacing-1: 0.25rem;
+      --spacing-2: 0.5rem;
+      --spacing-3: 0.75rem;
+      --spacing-4: 1rem;
+      --spacing-6: 1.5rem;
+      --spacing-8: 2rem;
+      --spacing-12: 3rem;
+      --spacing-16: 4rem;
+      --spacing-20: 5rem;
+      --radius-sm: 0.125rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition-fast: 150ms;
+      --transition-normal: 300ms;
+      --transition-slow: 500ms;
+      --z-header: 50;
+      --z-dropdown: 40;
+      --z-modal: 60;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Focus styles for accessibility */
+    :focus-visible {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 2px;
+    }
+    
+    /* Skip to content link for accessibility */
+    .skip-to-content {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    
+    .skip-to-content:focus {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      padding: 1rem;
+      background: white;
+      z-index: 9999;
+      color: var(--primary-700);
+      font-weight: 600;
+    }
+    
+    /* Gradient styles */
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /* Card interactions */
+    .card-hover {
+      transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    /* Navigation styles */
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--primary-600);
+      transition: width var(--transition-normal) ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+      width: 100%;
+    }
+    
+    /* Dropdown menu */
+    .dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all var(--transition-normal) ease;
+    }
+    
+    .dropdown-container:hover .dropdown,
+    .dropdown-container:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    /* Animations */
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    /* Swiper customization */
+    .swiper-pagination-bullet-active {
+      background-color: var(--primary-600) !important;
+    }
+    
+    /* Dark mode transitions */
+    html {
+      transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+    }
+    
+    /* Animated counter */
+    .counter-value {
+      transition: all var(--transition-slow) ease;
+    }
+    
+    /* Gradient border */
+    .gradient-border {
+      position: relative;
+      border-radius: var(--radius-lg);
+      z-index: 0;
+    }
+    
+    .gradient-border::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-600), var(--primary-500), #60a5fa);
+      z-index: -1;
+      border-radius: var(--radius-xl);
+      animation: borderAnimation 3s ease infinite;
+    }
+    
+    @keyframes borderAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Animated background */
+    .animated-bg {
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      animation: scrollIndicator 2s ease-in-out infinite;
+    }
+    
+    @keyframes scrollIndicator {
+      0% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(10px); opacity: 0.4; }
+      100% { transform: translateY(0); opacity: 0.8; }
+    }
+    
+    /* 3D Card Effect */
+    .card-3d {
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .card-3d:hover {
+      transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+    }
+    
+    /* Glowing effect */
+    .glow {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glow::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+      opacity: 0;
+      transition: opacity 0.6s;
+      pointer-events: none;
+    }
+    
+    .glow:hover::after {
+      opacity: 1;
+    }
+    
+    /* Path connector */
+    .path-connector {
+      position: relative;
+    }
+    
+    .path-connector::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-500));
+    }
+    
+    .path-connector::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-500), transparent);
+    }
+    
+    /* Pulse animation */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Approach card hover effect */
+    .approach-card {
+      transition: all var(--transition-slow) cubic-bezier(0.23, 1, 0.32, 1);
+      overflow: hidden;
+    }
+    
+    .approach-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3);
+    }
+    
+    .approach-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+      opacity: 0;
+      transition: opacity var(--transition-slow) ease;
+    }
+    
+    .approach-card:hover::before {
+      opacity: 1;
+    }
+    
+    .approach-icon {
+      transition: all var(--transition-slow) ease;
+    }
+    
+    .approach-card:hover .approach-icon {
+      transform: scale(1.2) translateY(-5px);
+    }
+    
+    /* Progress line */
+    .progress-line {
+      position: relative;
+      height: 100%;
+    }
+    
+    .progress-line::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--primary-500), transparent);
+    }
+    
+    /* Mobile menu animation */
+    .mobile-menu-enter {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    
+    .mobile-menu-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--transition-normal), transform var(--transition-normal);
+    }
+    
+    .mobile-menu-exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .mobile-menu-exit-active {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity var(--transition-normal), transform var(--transition-normal);
+    }
+    
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
+      .animate-float {
+        animation: none !important;
+        transform: none !important;
+      }
+      
+      .scroll-indicator {
+        animation: none !important;
+      }
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .mobile-padding {
+        padding-left: var(--spacing-4);
+        padding-right: var(--spacing-4);
+      }
+      
+      .mobile-text-center {
+        text-align: center;
+      }
+      
+      .mobile-full-width {
+        width: 100%;
+      }
+      
+      .mobile-py {
+        padding-top: var(--spacing-8);
+        padding-bottom: var(--spacing-8);
+      }
+      
+      .mobile-mt {
+        margin-top: var(--spacing-6);
+      }
+      
+      /* Improved mobile navigation */
+      .mobile-nav-container {
+        height: auto;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-normal) ease;
+      }
+      
+      .mobile-nav-container.open {
+        max-height: 100vh;
+      }
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            blue: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 md:h-20">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 flex items-center">
+            <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">E</div>
+            <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Elite Mutual Fund</span>
+          </div>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center justify-center flex-1">
+          <div class="flex space-x-8" role="menubar">
+            <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+            <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+            <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+            
+            <!-- Dropdown Menu -->
+            <div class="dropdown-container relative" role="menuitem">
+              <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+                More
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+                <div class="py-1" role="none">
+                  <a href="mutual-fund-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Mutual Fund Calculator</a>
+                  <a href="fixed-deposit-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Fixed Deposit Calculator</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tax Saving</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Financial Advisory</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex items-center">
+          <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Get Started
+          </button>
+          
+          <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          
+          <!-- Mobile menu button -->
+          <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+      <div class="px-4 pt-3 pb-4 space-y-3">
+        <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800" role="menuitem">Home</a>
+        <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+        <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+        
+        <div class="relative">
+          <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
+            More
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          
+          <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300" id="mobile-dropdown" role="menu">
+            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Investments</a>
+            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Retirement Planning</a>
+            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Tax Saving</a>
+            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Financial Advisory</a>
+          </div>
+        </div>
+        
+        <div class="pt-2">
+          <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-28" id="main-content">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <div data-aos="fade-up" data-aos-duration="1000">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <span class="block" data-aos="fade-up" data-aos-delay="200">Smart Investing</span>
+            <span class="block" data-aos="fade-up" data-aos-delay="400">for a Secure</span>
+            <span class="block" data-aos="fade-up" data-aos-delay="600">Financial Future</span>
+          </h1>
+          <p class="mt-6 text-lg md:text-xl text-blue-100 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="800">
+            Grow your wealth with our expert-backed investment solutions. Start your journey to financial freedom today.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="1000">
+            <a href="#" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-base font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+              Get Started
+            </a>
+            <a href="#" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-md text-base font-medium transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Watch Demo
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scroll indicator -->
+      <div class="flex justify-center mt-16">
+        <a href="#trusted-by" class="scroll-indicator focus:outline-none" aria-label="Scroll down to see more">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="6" x2="12" y2="14"></line><line x1="12" y1="18" x2="12" y2="18"></line></svg>
+          <div class="h-5 w-0.5 bg-white/50 mx-auto mt-2" aria-hidden="true"></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted By Section -->
+  <section id="trusted-by" class="py-12 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Trusted By</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          Join thousands of satisfied investors
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center" data-aos="fade-up" data-aos-delay="400">
+        <img src="https://via.placeholder.com/150x50" alt="Company Logo - Financial Partner" class="h-8 md:h-10 opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://via.placeholder.com/150x50" alt="Company Logo - Investment Partner" class="h-8 md:h-10 opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://via.placeholder.com/150x50" alt="Company Logo - Banking Partner" class="h-8 md:h-10 opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://via.placeholder.com/150x50" alt="Company Logo - Technology Partner" class="h-8 md:h-10 opacity-70 hover:opacity-100 transition-opacity">
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach Section - ENHANCED -->
+  <section id="our-approach" class="py-20 bg-white dark:bg-gray-900 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <!-- Background Elements -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-blue-400/10 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div class="absolute top-1/2 -left-20 w-72 h-72 bg-blue-600/10 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div class="absolute -bottom-20 right-1/3 w-60 h-60 bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl"></div>
+      </div>
+      
+      <div class="text-center mb-16 relative">
+        <div class="inline-block" data-aos="zoom-in">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <span class="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-blue-400 mr-2" aria-hidden="true"></span>
+            Our Approach
+          </span>
+        </div>
+        <h2 class="mt-4 text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          <span class="relative inline-block">
+            Smart investing
+            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 5.5C32 2 62 0 101.5 5.5C141 11 171 6.5 199 3.5" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" fill="none" />
+            </svg>
+          </span>
+          <span class="text-blue-600 dark:text-blue-400"> made simple</span>
+        </h2>
+        <p class="mt-6 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+          We combine cutting-edge technology with financial expertise to help you achieve your goals.
+        </p>
+      </div>
+      
+      <!-- Journey Steps -->
+      <div class="relative">
+        <!-- Connection Line -->
+        <div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700 transform -translate-y-1/2 z-0" aria-hidden="true"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative z-10">
+          <!-- Step 1 -->
+          <div class="group" data-aos="fade-up" data-aos-delay="100">
+            <div class="approach-card bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 relative h-full card-3d glow">
+              <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full -mr-6 -mt-6" aria-hidden="true"></div>
+              
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-5 approach-icon relative" aria-hidden="true">
+                  <span class="absolute inset-0 rounded-full bg-blue-600/20 dark:bg-blue-400/20 animate-ping opacity-75 duration-1000"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-blue-600 dark:border-blue-500 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4 lg:absolute lg:-bottom-12 lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20" aria-hidden="true">
+                  <span class="font-bold">1</span>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Discover</h3>
+                
+                <p class="text-gray-500 dark:text-gray-400 mb-4">
+                  We analyze your financial goals and risk tolerance to create a personalized investment strategy.
+                </p>
+                
+                <div class="mt-auto">
+                  <a href="#" class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:underline focus:outline-none focus:underline">
+                    Learn more
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="group" data-aos="fade-up" data-aos-delay="200">
+            <div class="approach-card bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 relative h-full card-3d glow">
+              <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 dark:bg-green-900/20 rounded-bl-full -mr-6 -mt-6" aria-hidden="true"></div>
+              
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mb-5 approach-icon relative" aria-hidden="true">
+                  <span class="absolute inset-0 rounded-full bg-green-600/20 dark:bg-green-400/20 animate-ping opacity-75 duration-1000" style="animation-delay: 0.5s"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                </div>
+                
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-green-600 dark:border-green-500 flex items-center justify-center text-green-600 dark:text-green-400 mb-4 lg:absolute lg:-bottom-12 lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20" aria-hidden="true">
+                  <span class="font-bold">2</span>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Analyze</h3>
+                
+                <p class="text-gray-500 dark:text-gray-400 mb-4">
+                  Our AI-powered algorithms analyze market trends to identify the best investment opportunities.
+                </p>
+                
+                <div class="mt-auto">
+                  <a href="#" class="inline-flex items-center text-sm font-medium text-green-600 dark:text-green-400 group-hover:underline focus:outline-none focus:underline">
+                    Learn more
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="group" data-aos="fade-up" data-aos-delay="300">
+            <div class="approach-card bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 relative h-full card-3d glow">
+              <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 dark:bg-purple-900/20 rounded-bl-full -mr-6 -mt-6" aria-hidden="true"></div>
+              
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-5 approach-icon relative" aria-hidden="true">
+                  <span class="absolute inset-0 rounded-full bg-purple-600/20 dark:bg-purple-400/20 animate-ping opacity-75 duration-1000" style="animation-delay: 1s"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+                
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-purple-600 dark:border-purple-500 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-4 lg:absolute lg:-bottom-12 lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20" aria-hidden="true">
+                  <span class="font-bold">3</span>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Invest</h3>
+                
+                <p class="text-gray-500 dark:text-gray-400 mb-4">
+                  We build a diversified portfolio of high-performing mutual funds and fixed deposits.
+                </p>
+                
+                <div class="mt-auto">
+                  <a href="#" class="inline-flex items-center text-sm font-medium text-purple-600 dark:text-purple-400 group-hover:underline focus:outline-none focus:underline">
+                    Learn more
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="group" data-aos="fade-up" data-aos-delay="400">
+            <div class="approach-card bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 relative h-full card-3d glow">
+              <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 dark:bg-orange-900/20 rounded-bl-full -mr-6 -mt-6" aria-hidden="true"></div>
+              
+              <div class="flex flex-col items-center text-center relative">
+                <div class="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-5 approach-icon relative" aria-hidden="true">
+                  <span class="absolute inset-0 rounded-full bg-orange-600/20 dark:bg-orange-400/20 animate-ping opacity-75 duration-1000" style="animation-delay: 1.5s"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                </div>
+                
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-600 dark:border-orange-500 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-4 lg:absolute lg:-bottom-12 lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20" aria-hidden="true">
+                  <span class="font-bold">4</span>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">Grow</h3>
+                
+                <p class="text-gray-500 dark:text-gray-400 mb-4">
+                  We continuously monitor and optimize your portfolio to maximize returns and minimize risk.
+                </p>
+                
+                <div class="mt-auto">
+                  <a href="#" class="inline-flex items-center text-sm font-medium text-orange-600 dark:text-orange-400 group-hover:underline focus:outline-none focus:underline">
+                    Learn more
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Features Grid -->
+      <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="ml-4 text-xl font-bold text-gray-900 dark:text-white">Bank-Grade Security</h3>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300">
+            Your investments are protected with 256-bit encryption and multi-factor authentication. We maintain the highest security standards in the industry.
+          </p>
+          <div class="mt-6 flex items-center text-blue-600 dark:text-blue-400 font-medium">
+            <span>99.99% uptime</span>
+            <div class="ml-2 w-full max-w-[100px] bg-gray-200 dark:bg-gray-700 rounded-full h-2" role="progressbar" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100">
+              <div class="bg-blue-600 dark:bg-blue-500 h-2 rounded-full" style="width: 99%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <h3 class="ml-4 text-xl font-bold text-gray-900 dark:text-white">Higher Returns</h3>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300">
+            Our investment strategies consistently outperform market averages. Our mutual funds have delivered 18% average annual returns over the past 5 years.
+          </p>
+          <div class="mt-6 flex items-center text-green-600 dark:text-green-400 font-medium">
+            <span>+18% avg. returns</span>
+            <div class="ml-2 w-full max-w-[100px] bg-gray-200 dark:bg-gray-700 rounded-full h-2" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+              <div class="bg-green-600 dark:bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3 class="ml-4 text-xl font-bold text-gray-900 dark:text-white">Expert Advisory</h3>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300">
+            Get personalized advice from our team of certified financial advisors with decades of experience in wealth management and investment strategy.
+          </p>
+          <div class="mt-6 flex items-center text-purple-600 dark:text-purple-400 font-medium">
+            <span>24/7 support</span>
+            <div class="ml-2 w-full max-w-[100px] bg-gray-200 dark:bg-gray-700 rounded-full h-2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+              <div class="bg-purple-600 dark:bg-purple-500 h-2 rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CTA Card -->
+      <div class="mt-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 shadow-xl relative overflow-hidden" data-aos="fade-up">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
+          <div class="mb-6 md:mb-0 md:mr-8">
+            <h3 class="text-2xl font-bold text-white mb-2">Ready to start your investment journey?</h3>
+            <p class="text-blue-100">
+              Join thousands of investors who trust Elite Mutual Fund with their financial future.
+            </p>
+          </div>
+          <a href="#" class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg text-base font-medium shadow-lg transition-all whitespace-nowrap flex items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+            Get Started Now
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Our Benefits</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          Why choose Elite Mutual Fund
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1" data-aos="fade-right">
+          <div class="space-y-10">
+            <!-- Feature 1 -->
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 rounded-md bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Fast & Efficient</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                  Open an account in minutes and start investing right away with our streamlined onboarding process.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 rounded-md bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Higher Returns</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                  Our carefully selected mutual funds and fixed deposits consistently outperform market averages.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 rounded-md bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Mobile First</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                  Manage your investments anytime, anywhere with our intuitive mobile app and responsive web platform.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-1 md:order-2 relative" data-aos="fade-left">
+          <div class="relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" aria-hidden="true"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style="animation-delay: 1s;" aria-hidden="true"></div>
+            <img src="https://via.placeholder.com/600x500" alt="Elite Mutual Fund Mobile App Interface" class="relative z-10 rounded-lg shadow-xl">
+          </div>
+          
+          <!-- Floating card -->
+          <div class="absolute -bottom-5 -left-5 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 z-20 gradient-border">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">Bank-Grade Security</p>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">256-bit encryption</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section id="stats" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Our Reach</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          Trusted by investors worldwide
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <!-- Stat 1 -->
+        <div data-aos="fade-up" data-aos-delay="200">
+          <p class="text-4xl font-extrabold text-blue-600">
+            <span class="counter-value" data-target="500">0</span>k+
+          </p>
+          <p class="mt-2 text-lg font-medium text-gray-500 dark:text-gray-400">Active Users</p>
+        </div>
+        
+        <!-- Stat 2 -->
+        <div data-aos="fade-up" data-aos-delay="400">
+          <p class="text-4xl font-extrabold text-blue-600">$<span class="counter-value" data-target="2">0</span>B+</p>
+          <p class="mt-2 text-lg font-medium text-gray-500 dark:text-gray-400">Assets Under Management</p>
+        </div>
+        
+        <!-- Stat 3 -->
+        <div data-aos="fade-up" data-aos-delay="600">
+          <p class="text-4xl font-extrabold text-blue-600">
+            <span class="counter-value" data-target="15">0</span>M+
+          </p>
+          <p class="mt-2 text-lg font-medium text-gray-500 dark:text-gray-400">Transactions</p>
+        </div>
+        
+        <!-- Stat 4 -->
+        <div data-aos="fade-up" data-aos-delay="800">
+          <p class="text-4xl font-extrabold text-blue-600">
+            <span class="counter-value" data-target="98">0</span>%
+          </p>
+          <p class="mt-2 text-lg font-medium text-gray-500 dark:text-gray-400">Customer Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Investment Options Section -->
+  <section id="investment-options" class="py-20 bg-gray-50 dark:bg-gray-800 animated-bg" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Investment Options</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          Tailored solutions for every investor
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Mutual Funds Card -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+          <div class="h-40 bg-blue-600 flex items-center justify-center p-6" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20 text-white"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Mutual Funds</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">
+              Diversify your portfolio with our expertly managed mutual funds offering competitive returns.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-blue-600">Returns up to 18%</span>
+              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center focus:outline-none focus:underline">
+                Explore <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fixed Deposit Card -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+          <div class="h-40 bg-green-600 flex items-center justify-center p-6" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20 text-white"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Fixed Deposits</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">
+              Secure your savings with guaranteed returns and flexible tenure options.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-green-600">Guaranteed 12.5% returns</span>
+              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center focus:outline-none focus:underline">
+                Explore <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Retirement Planning Card -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="600">
+          <div class="h-40 bg-purple-600 flex items-center justify-center p-6" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-20 h-20 text-white"><path d="M23 12a11.05 11.05 0 0 0-22 0zm-5 7a3 3 0 0 1-6 0v-7"></path></svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Retirement Planning</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">
+              Secure your future with our comprehensive retirement planning solutions.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-purple-600">Tax-advantaged growth</span>
+              <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center focus:outline-none focus:underline">
+                Explore <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Testimonials</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+          What our customers say
+        </h2>
+      </div>
+      
+      <div class="swiper testimonial-swiper" data-aos="fade-up" data-aos-delay="400">
+        <div class="swiper-wrapper pb-10">
+          <!-- Testimonial 1 -->
+          <div class="swiper-slide">
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="text-yellow-400 flex" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <span class="sr-only">5 out of 5 stars</span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-6">
+                "Elite Mutual Fund has completely transformed how I manage my investments. The platform is intuitive, and the returns on my mutual funds have exceeded my expectations. Their customer service is exceptional!"
+              </p>
+              <div class="flex items-center">
+                <img src="https://via.placeholder.com/60x60" alt="Sarah Johnson" class="w-12 h-12 rounded-full">
+                <div class="ml-4">
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Sarah Johnson</h4>
+                  <p class="text-gray-500 dark:text-gray-400">Marketing Director</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="swiper-slide">
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="text-yellow-400 flex" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <span class="sr-only">5 out of 5 stars</span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-6">
+                "As a first-time investor, I was nervous about where to put my money. Elite Mutual Fund's advisors guided me through the entire process, and now my portfolio is growing steadily. I couldn't be happier with my decision!"
+              </p>
+              <div class="flex items-center">
+                <img src="https://via.placeholder.com/60x60" alt="Michael Chen" class="w-12 h-12 rounded-full">
+                <div class="ml-4">
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Michael Chen</h4>
+                  <p class="text-gray-500 dark:text-gray-400">Software Engineer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="swiper-slide">
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="text-yellow-400 flex" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <span class="sr-only">5 out of 5 stars</span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-6">
+                "The fixed deposit options at Elite Mutual Fund offer significantly better returns than my bank. The platform makes it easy to track my investments, and the mobile app is fantastic for managing everything on the go."
+              </p>
+              <div class="flex items-center">
+                <img src="https://via.placeholder.com/60x60" alt="Emily Rodriguez" class="w-12 h-12 rounded-full">
+                <div class="ml-4">
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Emily Rodriguez</h4>
+                  <p class="text-gray-500 dark:text-gray-400">Small Business Owner</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="py-20 bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-2/3 mb-10 md:mb-0" data-aos="fade-right">
+          <h2 class="text-3xl font-bold text-white mb-4">Ready to start your investment journey?</h2>
+          <p class="text-blue-100 text-lg">
+            Join thousands of investors who trust Elite Mutual Fund with their financial future. Get started in minutes.
+          </p>
+        </div>
+        <div class="md:w-1/3 flex flex-col sm:flex-row md:flex-col gap-4" data-aos="fade-left">
+          <a href="#" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-base font-medium shadow-lg transition-all text-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+            Create Account
+          </a>
+          <a href="#" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-md text-base font-medium transition-all text-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+            <span class="ml-2 text-xl font-bold">Elite Mutual Fund</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Smart financial solutions for a secure future. Invest wisely, grow steadily.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-medium mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Investments</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposits</a></li>
+          </ul>
+        </div>
+        
+        <!-- Legal -->
+        <div>
+          <h3 class="text-lg font-medium mb-4">Legal</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Disclaimer</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Security</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact -->
+        <div>
+          <h3 class="text-lg font-medium mb-4">Contact Us</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
+            </li>
+            <li class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span class="text-gray-400">+1 (555) 123-4567</span>
+            </li>
+            <li class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span class="text-gray-400">support@Elite Mutual Fund.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2024 Elite Mutual Fund. All rights reserved.
+        </p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS animations with reduced motion preference check
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      AOS.init({
+        once: true,
+        duration: prefersReducedMotion ? 0 : 800,
+        easing: 'ease-out-cubic',
+        disable: prefersReducedMotion ? true : 'mobile'
+      });
+      
+      // Mobile menu toggle with improved accessibility
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+          const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+          mobileMenuButton.setAttribute('aria-expanded', !expanded);
+          mobileMenu.classList.toggle('hidden');
+          
+          // Add slide animation
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.style.opacity = '0';
+            mobileMenu.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+              mobileMenu.style.opacity = '1';
+              mobileMenu.style.transform = 'translateY(0)';
+            }, 10);
+          }
+        });
+      }
+      
+      // Mobile dropdown toggle with improved accessibility
+      const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
+      const mobileDropdown = document.getElementById('mobile-dropdown');
+      const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
+      
+      if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
+        mobileDropdownButton.addEventListener('click', function() {
+          const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
+          mobileDropdownButton.setAttribute('aria-expanded', !expanded);
+          mobileDropdown.classList.toggle('hidden');
+          
+          if (!mobileDropdown.classList.contains('hidden')) {
+            mobileDropdownIcon.style.transform = 'rotate(180deg)';
+            mobileDropdown.style.maxHeight = '0';
+            setTimeout(() => {
+              mobileDropdown.style.maxHeight = mobileDropdown.scrollHeight + 'px';
+            }, 10);
+          } else {
+            mobileDropdownIcon.style.transform = 'rotate(0)';
+            mobileDropdown.style.maxHeight = '0';
+          }
+        });
+      }
+      
+      // Dark mode toggle with improved accessibility and user preference
+      const darkModeToggle = document.querySelector('button[aria-label="Toggle dark mode"]');
+      
+      if (darkModeToggle) {
+        // Check for system preference
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Check for saved preference or use system preference
+        if (localStorage.getItem('darkMode') === 'enabled' || (prefersDarkMode && localStorage.getItem('darkMode') === null)) {
+          document.documentElement.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+          document.documentElement.classList.toggle('dark');
+          
+          if (document.documentElement.classList.contains('dark')) {
+            localStorage.setItem('darkMode', 'enabled');
+          } else {
+            localStorage.setItem('darkMode', 'disabled');
+          }
+        });
+      }
+      
+      // Initialize testimonial slider with improved accessibility
+      if (typeof Swiper !== 'undefined') {
+        const swiper = new Swiper('.testimonial-swiper', {
+          a11y: {
+            prevSlideMessage: 'Previous testimonial',
+            nextSlideMessage: 'Next testimonial',
+            firstSlideMessage: 'This is the first testimonial',
+            lastSlideMessage: 'This is the last testimonial',
+          },
+          slidesPerView: 1,
+          spaceBetween: 30,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }
+        });
+      }
+      
+      // Animated counters with IntersectionObserver for performance
+      const counters = document.querySelectorAll('.counter-value');
+      
+      if (counters.length > 0 && !prefersReducedMotion) {
+        const speed = 200;
+        
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'));
+          const increment = target / speed;
+          
+          const updateCount = () => {
+            const count = parseInt(counter.innerText);
+            if (count < target) {
+              counter.innerText = Math.ceil(count + increment);
+              requestAnimationFrame(updateCount);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          
+          // Start counting when element is in viewport
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                updateCount();
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.5 });
+          
+          observer.observe(counter);
+        });
+      } else if (counters.length > 0) {
+        // If reduced motion is preferred, just show the final values
+        counters.forEach(counter => {
+          counter.innerText = counter.getAttribute('data-target');
+        });
+      }
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          
+          if (href !== '#') {
+            e.preventDefault();
+            
+            const target = document.querySelector(href);
+            if (target) {
+              // Use smooth scrolling only if user hasn't set reduced motion preference
+              if (!prefersReducedMotion) {
+                target.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              } else {
+                target.scrollIntoView();
+              }
+              
+              // Update focus for accessibility
+              target.setAttribute('tabindex', '-1');
+              target.focus({ preventScroll: true });
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

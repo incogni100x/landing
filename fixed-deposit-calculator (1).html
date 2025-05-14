@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DeliFin Fixed Deposit Calculator - Calculate potential returns on your fixed deposit investments with our easy-to-use calculator.">
+<title>Fixed Deposit Calculator | DeliFin - Smart Financial Solutions</title>
+
+<!-- Preload critical assets -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS - Use a production minified version -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Chart.js for visualizations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Consolidated external libraries - Self-hosted for better performance -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+<style>
+/* Base styles */
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --success-500: #22c55e;
+  --warning-500: #f59e0b;
+  --danger-500: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --z-header: 50;
+  --z-dropdown: 40;
+  --z-modal: 60;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  background: white;
+  z-index: 9999;
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+/* Gradient styles */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card interactions */
+.card-hover {
+  transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Navigation styles */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-600);
+  transition: width var(--transition-normal) ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Dropdown menu */
+.dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all var(--transition-normal) ease;
+}
+
+.dropdown-container:hover .dropdown,
+.dropdown-container:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Dark mode transitions */
+html {
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+/* Accordion styles */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 500px;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Calculator specific styles */
+.calculator-card {
+  transition: all var(--transition-normal) ease;
+}
+
+.calculator-card:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.fd-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.fd-table th {
+  background-color: var(--primary-600);
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  padding: 1rem;
+}
+
+.fd-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.fd-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fd-table tr:nth-child(even) {
+  background-color: var(--gray-50);
+}
+
+.fd-table tr:hover {
+  background-color: var(--primary-50);
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: var(--gray-200);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-600);
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--primary-700);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary-600);
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: var(--primary-700);
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+  
+  .mobile-text-center {
+    text-align: center;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
+  
+  .mobile-py {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-8);
+  }
+  
+  .mobile-mt {
+    margin-top: var(--spacing-6);
+  }
+  
+  /* Improved mobile navigation */
+  .mobile-nav-container {
+    height: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease;
+  }
+  
+  .mobile-nav-container.open {
+    max-height: 100vh;
+  }
+}
+</style>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        blue: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8'
+        },
+        green: {
+          500: '#22c55e',
+          600: '#16a34a'
+        }
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-white dark:bg-gray-900">
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+
+<!-- Navigation -->
+<nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex justify-between h-16 md:h-20">
+    <div class="flex items-center">
+      <div class="flex-shrink-0 flex items-center">
+        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+        <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">DeliFin</span>
+      </div>
+    </div>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center justify-center flex-1">
+      <div class="flex space-x-8" role="menubar">
+        <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+        <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+        <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+        <a href="fixed-deposit-calculator.html" class="nav-link text-blue-600 dark:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem" aria-current="page">FD Calculator</a>
+        
+        <!-- Dropdown Menu -->
+        <div class="dropdown-container relative" role="menuitem">
+          <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+            More
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Investments</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Retirement Planning</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tax Saving</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Financial Advisory</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center">
+      <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Get Started
+      </button>
+      
+      <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      
+      <!-- Mobile menu button -->
+      <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile menu -->
+<div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+  <div class="px-4 pt-3 pb-4 space-y-3">
+    <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
+    <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+    <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+    <a href="fixed-deposit-calculator.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800" role="menuitem" aria-current="page">FD Calculator</a>
+    
+    <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
+        More
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300" id="mobile-dropdown" role="menu">
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Investments</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Retirement Planning</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Tax Saving</a>
+        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Financial Advisory</a>
+      </div>
+    </div>
+    
+    <div class="pt-2">
+      <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Get Started
+      </a>
+    </div>
+  </div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-28" id="main-content">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-aos="fade-up">
+      <span class="block">Fixed Deposit</span>
+      <span class="block">Return Calculator</span>
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
+      Plan your investments with certainty. Calculate guaranteed returns on fixed deposits and make informed decisions for your financial future.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+      <a href="#calculator" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-base font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 text-center">
+        Start Calculating
+      </a>
+      <a href="#how-it-works" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-md text-base font-medium transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        How It Works
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Calculator Section -->
+<section id="calculator" class="py-20 bg-white dark:bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Investment Planning</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      Fixed Deposit <span class="text-blue-600 dark:text-blue-400">Return Calculator</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Estimate your guaranteed returns and plan your investments with confidence
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Calculator Form -->
+    <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8" data-aos="fade-up">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Calculate Your Returns</h3>
+      
+      <form id="calculator-form" class="space-y-6">
+        <!-- Investment Type -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Investment Type</label>
+          <div class="flex space-x-4">
+            <label class="flex items-center">
+              <input type="radio" name="investmentType" value="standard" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">Standard FD</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="investmentType" value="senior" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">Senior Citizen (+0.5%)</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Tenure Selection -->
+        <div>
+          <label for="tenure" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Tenure</label>
+          <div class="relative">
+            <select id="tenure" name="tenure" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <option value="0.25">3 Months - 13.5%</option>
+              <option value="0.5">6 Months - 12.5%</option>
+              <option value="1">1 Year - 10.0%</option>
+              <option value="2">2 Years - 8.5%</option>
+              <option value="5">5 Years - 8.0%</option>
+              <option value="10">10 Years - 7.5%</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Investment Amount -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Amount ($)</label>
+            <span id="amount-value" class="text-sm text-gray-500 dark:text-gray-400">$10,000</span>
+          </div>
+          <input type="range" id="amount" name="amount" min="1000" max="1000000" step="1000" value="10000" class="w-full">
+        </div>
+        
+        <!-- Interest Payout -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Interest Payout</label>
+          <div class="flex space-x-4">
+            <label class="flex items-center">
+              <input type="radio" name="interestPayout" value="maturity" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">On Maturity</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="interestPayout" value="monthly" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">Monthly</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="interestPayout" value="quarterly" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <span class="ml-2 text-gray-700 dark:text-gray-300">Quarterly</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Tax Rate (Optional) -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label for="taxRate" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tax Rate (%)</label>
+            <span id="tax-rate-value" class="text-sm text-gray-500 dark:text-gray-400">20%</span>
+          </div>
+          <input type="range" id="taxRate" name="taxRate" min="0" max="40" step="1" value="20" class="w-full">
+        </div>
+        
+        <div class="pt-4">
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Calculate Returns
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Results Card -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Projected Returns</h3>
+      
+      <div id="results-container">
+        <!-- Initial Investment -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Initial Investment</p>
+          <p id="initial-investment" class="text-2xl font-bold text-gray-900 dark:text-white">$10,000.00</p>
+        </div>
+        
+        <!-- Interest Rate -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Interest Rate</p>
+          <p id="interest-rate" class="text-xl font-bold text-gray-900 dark:text-white">13.5%</p>
+        </div>
+        
+        <!-- Interest Earned -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Interest Earned</p>
+          <p id="interest-earned" class="text-2xl font-bold text-green-600 dark:text-green-400">$337.50</p>
+        </div>
+        
+        <!-- Tax on Interest -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Tax on Interest</p>
+          <p id="tax-amount" class="text-xl font-bold text-red-600 dark:text-red-400">$67.50</p>
+        </div>
+        
+        <!-- Final Amount -->
+        <div class="mb-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Final Amount</p>
+          <p id="final-amount" class="text-3xl font-bold text-blue-600 dark:text-blue-400">$10,270.00</p>
+        </div>
+        
+        <!-- Chart -->
+        <div class="mt-8">
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Growth Projection</p>
+          <div class="h-64">
+            <canvas id="growth-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FD Rates Table -->
+  <div class="mt-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white">Fixed Deposit Interest Rates</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="fd-table w-full">
+        <thead>
+          <tr>
+            <th>Tenure</th>
+            <th>Standard Rate</th>
+            <th>Senior Citizen Rate</th>
+            <th>Compounding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-medium">3 Months</td>
+            <td class="text-green-600 dark:text-green-400">13.5%</td>
+            <td class="text-green-600 dark:text-green-400">14.0%</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td class="font-medium">6 Months</td>
+            <td class="text-green-600 dark:text-green-400">12.5%</td>
+            <td class="text-green-600 dark:text-green-400">13.0%</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td class="font-medium">1 Year</td>
+            <td class="text-green-600 dark:text-green-400">10.0%</td>
+            <td class="text-green-600 dark:text-green-400">10.5%</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td class="font-medium">2 Years</td>
+            <td class="text-green-600 dark:text-green-400">8.5%</td>
+            <td class="text-green-600 dark:text-green-400">9.0%</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td class="font-medium">5 Years</td>
+            <td class="text-green-600 dark:text-green-400">8.0%</td>
+            <td class="text-green-600 dark:text-green-400">8.5%</td>
+            <td>Quarterly</td>
+          </tr>
+          <tr>
+            <td class="font-medium">10 Years</td>
+            <td class="text-green-600 dark:text-green-400">7.5%</td>
+            <td class="text-green-600 dark:text-green-400">8.0%</td>
+            <td>Quarterly</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-20 bg-gray-50 dark:bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Understanding the Process</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      How the <span class="text-blue-600 dark:text-blue-400">Calculator Works</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Learn about the formulas and calculations behind our fixed deposit return projections
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div data-aos="fade-right">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Calculation Formulas</h3>
+        
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Simple Interest (Non-compounding)</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">A = P + (P × r × t)</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                A = Final amount<br>
+                P = Principal (initial investment)<br>
+                r = Annual rate of interest (in decimal)<br>
+                t = Time period in years
+              </p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Compound Interest (Quarterly Compounding)</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">A = P × (1 + r/4)^(4t)</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                A = Final amount<br>
+                P = Principal (initial investment)<br>
+                r = Annual rate of interest (in decimal)<br>
+                t = Time period in years<br>
+                4 = Number of times interest is compounded per year
+              </p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Tax Calculation</h4>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <p class="text-gray-700 dark:text-gray-300 font-mono">Tax = Interest Earned × Tax Rate</p>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Where:<br>
+                Interest Earned = A - P<br>
+                Tax Rate = Your applicable tax rate (in decimal)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div data-aos="fade-left">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Important Considerations</h3>
+        
+        <ul class="space-y-4">
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Guaranteed Returns:</strong> Fixed deposits offer guaranteed returns, unlike market-linked investments. The interest rate is fixed at the time of investment and remains constant throughout the tenure.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Premature Withdrawal:</strong> Early withdrawal from fixed deposits may result in a penalty, typically a reduction in the interest rate. Our calculator does not account for premature withdrawals.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Tax Implications:</strong> Interest earned on fixed deposits is taxable as per your income tax slab. TDS (Tax Deducted at Source) may be applicable if the interest amount exceeds certain thresholds.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Inflation Impact:</strong> The calculator does not adjust for inflation. Consider the "real rate of return" (return rate minus inflation rate) for more accurate long-term planning.</span>
+          </li>
+          <li class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span class="text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Senior Citizen Benefits:</strong> Many financial institutions offer higher interest rates (typically 0.25% to 0.5% more) for senior citizens. Our calculator includes this option.</span>
+          </li>
+        </ul>
+        
+        <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-3" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              This calculator is for educational purposes only. Consult with a financial advisor before making investment decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-20 bg-white dark:bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-16">
+    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide" data-aos="fade-up">Common Questions</p>
+    <h2 class="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="200">
+      Frequently Asked <span class="text-blue-600 dark:text-blue-400">Questions</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="400">
+      Everything you need to know about fixed deposit calculations
+    </p>
+  </div>
+  
+  <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+    <div class="space-y-6">
+      <!-- FAQ Item 1 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What is a Fixed Deposit?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            A Fixed Deposit (FD) is a financial instrument provided by banks and financial institutions that offers investors a higher rate of interest than a regular savings account, until the given maturity date. It's a type of term deposit where money is locked in for a fixed period, ranging from a few months to several years. The interest rate is fixed at the time of investment and remains constant throughout the tenure, providing guaranteed returns regardless of market fluctuations.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 2 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">How is interest calculated on Fixed Deposits?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Interest on Fixed Deposits can be calculated in two ways: simple interest or compound interest. With simple interest, interest is calculated only on the principal amount. With compound interest, interest is calculated on the principal and the accumulated interest from previous periods. Most banks compound interest quarterly (every three months). The formula for quarterly compounding is: A = P × (1 + r/4)^(4t), where A is the final amount, P is the principal, r is the annual interest rate (in decimal), and t is the time in years.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 3 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What happens if I withdraw my Fixed Deposit prematurely?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Premature withdrawal of a Fixed Deposit typically results in a penalty, which is usually a reduction in the interest rate. The penalty varies from bank to bank but is generally around 0.5% to 1% less than the original interest rate. Some banks may also charge a fixed penalty amount. Additionally, if you withdraw before a certain minimum period (often 3 months), you might not receive any interest at all. It's important to check the specific terms and conditions of your Fixed Deposit before making a premature withdrawal.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 4 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">How are Fixed Deposits taxed?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Interest earned on Fixed Deposits is taxable as per your income tax slab rate. Banks typically deduct Tax Deducted at Source (TDS) if the interest earned in a financial year exceeds a certain threshold (often $10,000). If your total income is below the taxable limit, you can submit a declaration form (often Form 15G/15H) to avoid TDS deduction. It's important to note that even if TDS is not deducted, you are still liable to pay tax on the interest income when filing your income tax return.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 5 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">What are the advantages of Fixed Deposits over other investments?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Fixed Deposits offer several advantages: 1) Safety and security - they are considered one of the safest investment options as they are not affected by market fluctuations; 2) Guaranteed returns - the interest rate is fixed at the time of investment and remains constant throughout the tenure; 3) Flexibility - they come with various tenure options, from a few days to several years; 4) Liquidity - while there's a penalty for premature withdrawal, you can still access your funds in case of emergencies; 5) Loan facility - many banks offer loans against Fixed Deposits at favorable interest rates; and 6) Higher interest rates for senior citizens.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 6 -->
+      <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+        <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
+          <span class="text-lg font-medium text-gray-900 dark:text-white">How does inflation affect Fixed Deposit returns?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content px-6 pb-6">
+          <p class="text-gray-600 dark:text-gray-300">
+            Inflation can significantly impact the real returns from Fixed Deposits. While Fixed Deposits offer guaranteed nominal returns, the real return (adjusted for inflation) may be much lower or even negative if the inflation rate exceeds the interest rate. For example, if your Fixed Deposit earns 8% interest but the inflation rate is 6%, your real return is only about 2%. This means that the purchasing power of your money grows by only 2%, not 8%. For long-term financial planning, it's important to consider investments that can potentially beat inflation, especially for goals that are many years away.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden" data-aos="fade-up">
+    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white/10 rounded-full" aria-hidden="true"></div>
+    
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
+      <div class="mb-8 md:mb-0 md:mr-8 text-center md:text-left">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Start Investing?</h2>
+        <p class="text-blue-100 text-lg max-w-2xl">
+          Use our calculator to plan your investments, then take the next step toward financial security with DeliFin's guaranteed fixed deposit options.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#calculator" class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg text-base font-medium shadow-lg transition-all whitespace-nowrap flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+          Calculate Returns
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path  class="w-4 h-4 ml-2" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="#" class="border border-white text-white hover:bg-white/10 px-6 py-3 rounded-lg text-base font-medium transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
+          Speak to an Advisor
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white" aria-labelledby="footer-heading">
+<h2 id="footer-heading" class="sr-only">Footer</h2>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <!-- Company Info -->
+    <div class="col-span-1 md:col-span-1">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+        <span class="ml-2 text-xl font-bold">DeliFin</span>
+      </div>
+      <p class="text-gray-400 mb-6">
+        Smart financial solutions for a secure future. Invest wisely, grow steadily.
+      </p>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Investments</a></li>
+        <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+        <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposits</a></li>
+      </ul>
+    </div>
+    
+    <!-- Legal -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Legal</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Disclaimer</a></li>
+        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Security</a></li>
+      </ul>
+    </div>
+    
+    <!-- Contact -->
+    <div>
+      <h3 class="text-lg font-medium mb-4">Contact Us</h3>
+      <ul class="space-y-2">
+        <li class="flex items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
+        </li>
+        <li class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span class="text-gray-400">+1 (555) 123-4567</span>
+        </li>
+        <li class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="text-gray-400">support@delifin.com</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+      &copy; 2024 DeliFin. All rights reserved.
+    </p>
+    <div class="flex space-x-6">
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize AOS animations with reduced motion preference check
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  AOS.init({
+    once: true,
+    duration: prefersReducedMotion ? 0 : 800,
+    easing: 'ease-out-cubic',
+    disable: prefersReducedMotion ? true : 'mobile'
+  });
+  
+  // Mobile menu toggle with improved accessibility
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', function() {
+      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !expanded);
+      mobileMenu.classList.toggle('hidden');
+      
+      // Add slide animation
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          mobileMenu.style.opacity = '1';
+          mobileMenu.style.transform = 'translateY(0)';
+        }, 10);
+      }
+    });
+  }
+  
+  // Mobile dropdown toggle with improved accessibility
+  const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
+  const mobileDropdown = document.getElementById('mobile-dropdown');
+  const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
+  
+  if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
+    mobileDropdownButton.addEventListener('click', function() {
+      const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
+      mobileDropdownButton.setAttribute('aria-expanded', !expanded);
+      mobileDropdown.classList.toggle('hidden');
+      
+      if (!mobileDropdown.classList.contains('hidden')) {
+        mobileDropdownIcon.style.transform = 'rotate(180deg)';
+        mobileDropdown.style.maxHeight = '0';
+        setTimeout(() => {
+          mobileDropdown.style.maxHeight = mobileDropdown.scrollHeight + 'px';
+        }, 10);
+      } else {
+        mobileDropdownIcon.style.transform = 'rotate(0)';
+        mobileDropdown.style.maxHeight = '0';
+      }
+    });
+  }
+  
+  // Dark mode toggle with improved accessibility and user preference
+  const darkModeToggle = document.querySelector('button[aria-label="Toggle dark mode"]');
+  
+  if (darkModeToggle) {
+    // Check for system preference
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Check for saved preference or use system preference
+    if (localStorage.getItem('darkMode') === 'enabled' || (prefersDarkMode && localStorage.getItem('darkMode') === null)) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    darkModeToggle.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  }
+  
+  // Accordion functionality
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const accordionItem = header.parentElement;
+      const accordionContent = header.nextElementSibling;
+      const isActive = accordionItem.classList.contains('active');
+      
+      // Close all accordions
+      document.querySelectorAll('.accordion-item').forEach(item => {
+        item.classList.remove('active');
+        item.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+      });
+      
+      // If the clicked accordion wasn't active, open it
+      if (!isActive) {
+        accordionItem.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      
+      if (href !== '#') {
+        e.preventDefault();
+        
+        const target = document.querySelector(href);
+        if (target) {
+          // Use smooth scrolling only if user hasn't set reduced motion preference
+          if (!prefersReducedMotion) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          } else {
+            target.scrollIntoView();
+          }
+          
+          // Update focus for accessibility
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        }
+      }
+    });
+  });
+  
+  // Time-based FD data
+  const timeBasedData = [
+    { period: "3 months", rate: 13.5, seniorRate: 14.0 },
+    { period: "6 months", rate: 12.5, seniorRate: 13.0 },
+    { period: "1 year", rate: 10.0, seniorRate: 10.5 },
+    { period: "2 years", rate: 8.5, seniorRate: 9.0 },
+    { period: "5 years", rate: 8.0, seniorRate: 8.5 },
+    { period: "10 years", rate: 7.5, seniorRate: 8.0 }
+  ];
+  
+  // Calculator functionality
+  const calculatorForm = document.getElementById('calculator-form');
+  const amountSlider = document.getElementById('amount');
+  const amountValue = document.getElementById('amount-value');
+  const taxRateSlider = document.getElementById('taxRate');
+  const taxRateValue = document.getElementById('tax-rate-value');
+  const tenureSelect = document.getElementById('tenure');
+  
+  // Initialize chart
+  let growthChart;
+  
+  // Format currency
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+  }
+  
+  // Update sliders display values
+  amountSlider.addEventListener('input', function() {
+    amountValue.textContent = formatCurrency(this.value);
+  });
+  
+  taxRateSlider.addEventListener('input', function() {
+    taxRateValue.textContent = `${this.value}%`;
+  });
+  
+  // Calculate FD returns
+  function calculateFDReturns(principal, rate, time, isSenior, payoutType) {
+    // Convert percentage to decimal
+    rate = rate / 100;
+    
+    // Add senior citizen bonus if applicable
+    if (isSenior) {
+      rate += 0.005; // Add 0.5%
+    }
+    
+    let interest = 0;
+    let finalAmount = 0;
+    
+    if (payoutType === 'maturity') {
+      // Compound interest calculation (quarterly compounding)
+      finalAmount = principal * Math.pow(1 + (rate / 4), 4 * time);
+      interest = finalAmount - principal;
+    } else if (payoutType === 'monthly') {
+      // Monthly payout (simple interest divided into monthly payments)
+      const monthlyRate = rate / 12;
+      interest = principal * rate * time;
+      finalAmount = principal + interest;
+    } else if (payoutType === 'quarterly') {
+      // Quarterly payout (simple interest divided into quarterly payments)
+      const quarterlyRate = rate / 4;
+      interest = principal * rate * time;
+      finalAmount = principal + interest;
+    }
+    
+    return {
+      interest: interest,
+      finalAmount: finalAmount
+    };
+  }
+  
+  // Generate time-based data for chart
+  function generateTimeData(principal, rate, maxTime, isSenior, payoutType) {
+    const data = [];
+    const timePoints = 20; // Number of points to plot
+    const timeStep = maxTime / timePoints;
+    
+    for (let i = 0; i <= timePoints; i++) {
+      const time = i * timeStep;
+      const result = calculateFDReturns(principal, rate, time, isSenior, payoutType);
+      data.push({ time, value: result.finalAmount });
+    }
+    
+    return data;
+  }
+  
+  // Update chart
+  function updateChart(timeData) {
+    const ctx = document.getElementById('growth-chart').getContext('2d');
+    
+    // Destroy previous chart if it exists
+    if (growthChart) {
+      growthChart.destroy();
+    }
+    
+    const times = timeData.map(data => data.time.toFixed(2));
+    const values = timeData.map(data => data.value);
+    
+    growthChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: times,
+        datasets: [
+          {
+            label: 'Investment Value',
+            data: values,
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time (Years)'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Value ($)'
+            },
+            ticks: {
+              callback: function(value) {
+                if (value >= 1000000) {
+                  return '$' + (value / 1000000).toFixed(1) + 'M';
+                } else if (value >= 1000) {
+                  return '$' + (value / 1000).toFixed(1) + 'K';
+                }
+                return '$' + value;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  // Form submission
+  calculatorForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const investmentType = document.querySelector('input[name="investmentType"]:checked').value;
+    const interestPayout = document.querySelector('input[name="interestPayout"]:checked').value;
+    const amount = parseFloat(amountSlider.value);
+    const tenure = parseFloat(tenureSelect.value);
+    const taxRate = parseFloat(taxRateSlider.value);
+    const isSenior = investmentType === 'senior';
+    
+    // Get rate based on tenure
+    let rate = 7.5; // Default to 10-year rate
+    
+    if (tenure === 0.25) {
+      rate = 13.5; // 3 months
+    } else if (tenure === 0.5) {
+      rate = 12.5; // 6 months
+    } else if (tenure === 1) {
+      rate = 10.0; // 1 year
+    } else if (tenure === 2) {
+      rate = 8.5; // 2 years
+    } else if (tenure === 5) {
+      rate = 8.0; // 5 years
+    } else {
+      rate = 7.5; // 10 years
+    }
+    
+    // Calculate returns
+    const result = calculateFDReturns(amount, rate, tenure, isSenior, interestPayout);
+    const interest = result.interest;
+    const finalAmount = result.finalAmount;
+    const taxAmount = (interest * taxRate) / 100;
+    const afterTaxAmount = finalAmount - taxAmount;
+    
+    // Update results
+    document.getElementById('initial-investment').textContent = formatCurrency(amount);
+    document.getElementById('interest-rate').textContent = `${isSenior ? rate + 0.5 : rate}%`;
+    document.getElementById('interest-earned').textContent = formatCurrency(interest);
+    document.getElementById('tax-amount').textContent = formatCurrency(taxAmount);
+    document.getElementById('final-amount').textContent = formatCurrency(afterTaxAmount);
+    
+    // Generate and update chart
+    const timeData = generateTimeData(amount, rate, tenure, isSenior, interestPayout);
+    updateChart(timeData);
+  });
+  
+  // Initialize with default values
+  const defaultRate = 13.5; // 3 months rate
+  const defaultTenure = 0.25; // 3 months
+  const timeData = generateTimeData(10000, defaultRate, defaultTenure, false, 'maturity');
+  updateChart(timeData);
+  
+  // Trigger calculation on page load
+  calculatorForm.dispatchEvent(new Event('submit'));
+});
+</script>
+</body>
+</html>
