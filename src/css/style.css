@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'BaselBook';
+  src: url('../assets/fonts/BaselBook.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselBold';
+  src: url('../assets/fonts/BaselBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselRegular';
+  src: url('../assets/fonts/BaselRegular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base styles */
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --success-500: #22c55e;
+  --warning-500: #f59e0b;
+  --danger-500: #ef4444;
+}
+
+body {
+  font-family: 'BaselBook', 'Inter', sans-serif;
+  font-weight: 400;
+  letter-spacing: normal;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Add all your other existing styles here */

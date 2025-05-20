@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DeliFin Fixed Deposits - Secure your savings with guaranteed returns and flexible tenure options.">
-  <title>Fixed Deposits | DeliFin - Smart Financial Solutions</title>
+  <meta name="description" content="Elite Mutual Fund Fixed Deposits - Secure your savings with guaranteed returns and flexible tenure options.">
+  <title>Fixed Deposits | Elite Mutual Fund - Smart Financial Solutions</title>
   
   <!-- Preload critical assets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,30 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   
   <style>
+@font-face {
+  font-family: 'BaselBook';
+  src: url('./assets/fonts/BaselBook.woff2') format('woff2');
+  font-weight: 400; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselBold';
+  src: url('./assets/fonts/BaselBold.woff2') format('woff2');
+  font-weight: 700; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselRegular';
+  src: url('./assets/fonts/BaselRegular.woff2') format('woff2');
+  font-weight: 300; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
     /* Base styles */
     :root {
       --primary-50: #eff6ff;
@@ -65,7 +89,9 @@
     }
     
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'BaselBook', 'Inter', sans-serif;
+      font-weight: 400; /* Explicitly set for body - BaselBook */
+      letter-spacing: normal; /* Normalize letter spacing */
       scroll-behavior: smooth;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -98,7 +124,9 @@
       background: white;
       z-index: 9999;
       color: var(--primary-700);
-      font-weight: 600;
+      font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure bold font for skip link */
+      font-weight: 700; /* Explicitly set for skip link */
+      letter-spacing: normal; /* Normalize letter spacing */
     }
     
     /* Gradient styles */
@@ -112,6 +140,9 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
+      font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure gradients use explicit bold weight */
+      font-weight: 700;
+      letter-spacing: normal;
     }
     
     /* Card interactions */
@@ -283,7 +314,9 @@
     .fd-table th {
       background-color: var(--primary-600);
       color: white;
-      font-weight: 600;
+      /* font-weight: 600; */ /* Removed to allow BaselBold to take effect */
+      font-family: 'BaselBold', 'Inter', sans-serif; /* Added */
+      font-weight: 700; /* Explicitly set font-weight */
       text-align: left;
       padding: 1rem;
     }
@@ -356,6 +389,53 @@
         max-height: 100vh;
       }
     }
+
+    /* Headings, explicit bold classes, buttons, and specific calculator elements */
+    h1, h2, h3, h4, h5, h6, 
+    .font-bold, .font-extrabold, .font-semibold, 
+    button, 
+    .accordion-header span {
+      font-family: 'BaselBold', 'Inter', sans-serif;
+      font-weight: 700; 
+      letter-spacing: normal;
+    }
+
+    /* Paragraphs and specific lighter text utility classes */
+    p, 
+    .text-blue-100, .text-gray-500, .text-gray-400, .text-gray-300, .text-gray-600, 
+    .font-light {
+      font-family: 'BaselRegular', 'Inter', sans-serif; 
+      font-weight: 300; 
+      letter-spacing: normal; 
+    }
+
+    /* Form elements like labels, selects, inputs will inherit from body (BaselBook 400) by default */
+    /* If specific styling is needed for them, it can be added here */
+    label, select, input {
+        font-family: 'BaselBook', 'Inter', sans-serif; /* Explicitly BaselBook for forms */
+        font-weight: 400;
+        letter-spacing: normal;
+    }
+    html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.max-w-7xl {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  position: relative;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
   </style>
   <script>
     tailwind.config = {
@@ -385,91 +465,121 @@
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <!-- Navigation -->
-  <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 md:h-20">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 flex items-center">
-            <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
-            <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">DeliFin</span>
-          </div>
+<nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 md:h-20">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">E</div>
+          <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Elite Mutual Fund</span>
         </div>
-        
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center justify-center flex-1">
-          <div class="flex space-x-8" role="menubar">
-            <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
-            <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
-            <a href="fixed-deposit.html" class="nav-link text-blue-600 dark:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem" aria-current="page">Fixed Deposit</a>
-            
-            <!-- Dropdown Menu -->
-            <div class="dropdown-container relative" role="menuitem">
-              <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
-                More
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-              <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
-                <div class="py-1" role="none">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Investments</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Retirement Planning</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tax Saving</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Financial Advisory</a>
-                </div>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center justify-center flex-1">
+        <div class="flex space-x-8" role="menubar">
+          <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+          <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+          <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+          
+          <!-- Calculators Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              Calculators
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="fixed-deposit-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Fixed Deposit Calculator</a>
+                <a href="mutual-funds-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Mutual Fund Calculator</a>
               </div>
             </div>
           </div>
+          
+          <!-- More Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="contact-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Contact Us</a>
+              <a href="about-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">About Us</a>
+              <a href="privacy-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Privacy Policy</a>
+              <a href="terms-of-service.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Terms of Service</a>
+              <a href="cookie-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Cookie Policy</a>
+            </div>
+            </div>
+          </div>
         </div>
+      </div>
+      
+      <div class="flex items-center">
+        <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </button>
         
-        <div class="flex items-center">
-          <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Get Started
-          </button>
-          
-          <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          </button>
-          
-          <!-- Mobile menu button -->
-          <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-        </div>
+        <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        
+        <!-- Mobile menu button -->
+        <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+    <div class="px-4 pt-3 pb-4 space-y-3">
+      <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
+      <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+      <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+      
+     <!-- Mobile Calculators Dropdown -->
+  <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-calculators-dropdown-button" aria-expanded="false" aria-controls="mobile-calculators-dropdown">
+        Calculators
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-calculators-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-calculators-dropdown" role="menu">
+        <a href="fixed-deposit-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Fixed Deposit Calculator</a>
+        <a href="mutual-funds-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Mutual Fund Calculator</a>
       </div>
     </div>
     
-    <!-- Mobile menu -->
-    <div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
-      <div class="px-4 pt-3 pb-4 space-y-3">
-        <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
-        <a href="#" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
-        <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800" role="menuitem" aria-current="page">Fixed Deposit</a>
-        
-        <div class="relative">
-          <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
-            More
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          
-          <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300" id="mobile-dropdown" role="menu">
-            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Investments</a>
-            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Retirement Planning</a>
-            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Tax Saving</a>
-            <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Financial Advisory</a>
-          </div>
-        </div>
-        
-        <div class="pt-2">
-          <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Get Started
-          </a>
-        </div>
+    <!-- Mobile More Dropdown -->
+    <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
+        More
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-dropdown" role="menu">
+        <a href="contact-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Contact Us</a>
+      <a href="about-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">About Us</a>
+      <a href="privacy-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Privacy Policy</a>
+      <a href="terms-of-service.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Terms of Service</a>
+      <a href="cookie-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Cookie Policy</a>
+
       </div>
     </div>
+    
+      
+      <div class="pt-2">
+        <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
   </nav>
-
+  
   <!-- Hero Section -->
-  <section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-28" id="main-content">
+  <section class="hero-gradient min-h-screen flex flex-col justify-center pt-32 pb-16 md:pt-40 md:pb-28" id="main-content">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center relative">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-aos="fade-up">
@@ -490,7 +600,8 @@
           </a>
         </div>
 
-        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 z-20 animate-float" style="animation-delay: 1.5s;">
+        <!-- Moved down and adjusted positioning -->
+        <div class="absolute -bottom-24 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 z-20 animate-float" style="animation-delay: 1.5s;">
           <div class="flex items-center">
             <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
@@ -598,7 +709,7 @@
             Fixed deposits are one of the safest investment options available. Your principal amount is secure, and returns are guaranteed regardless of market fluctuations.
           </p>
           <p class="text-gray-600 dark:text-gray-300">
-            At DeliFin, all deposits are insured, providing an additional layer of security for your hard-earned money.
+            At Elite Mutual Fund, all deposits are insured, providing an additional layer of security for your hard-earned money.
           </p>
         </div>
         
@@ -654,7 +765,7 @@
             Certain types of fixed deposits offer tax benefits under Section 80C of the Income Tax Act, allowing you to save on taxes while growing your wealth.
           </p>
           <p class="text-gray-600 dark:text-gray-300">
-            Our tax-saving fixed deposits come with a lock-in period of 5 years and provide deductions up to ₹1.5 lakhs per financial year.
+            Our tax-saving fixed deposits come with a lock-in period of 5 years and provide no deductions per financial year.
           </p>
         </div>
         
@@ -835,65 +946,42 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>7 - 14 days</td>
-                    <td>5.50%</td>
-                    <td>6.00%</td>
-                    <td>₹5,000</td>
+                    <td>3 Months</td>
+                    <td>13.5%</td>
+                    <td>14%</td>
+                    <td>$1,000</td>
                   </tr>
                   <tr>
-                    <td>15 - 45 days</td>
-                    <td>6.25%</td>
-                    <td>6.75%</td>
-                    <td>₹5,000</td>
+                    <td>6 Months</td>
+                    <td>12.5%</td>
+                    <td>13%</td>
+                    <td>$1,000</td>
                   </tr>
                   <tr>
-                    <td>46 - 90 days</td>
-                    <td>7.00%</td>
-                    <td>7.50%</td>
-                    <td>₹5,000</td>
-                  </tr>
-                  <tr>
-                    <td>91 - 180 days</td>
-                    <td>8.25%</td>
-                    <td>8.75%</td>
-                    <td>₹5,000</td>
-                  </tr>
-                  <tr>
-                    <td>181 - 364 days</td>
-                    <td>9.50%</td>
+                    <td>1 Year</td>
                     <td>10.00%</td>
-                    <td>₹5,000</td>
+                    <td>10.50%</td>
+                    <td>$1,000</td>
                   </tr>
                   <tr>
-                    <td>1 - 2 years</td>
-                    <td>10.75%</td>
-                    <td>11.25%</td>
-                    <td>₹5,000</td>
+                    <td>2 Years</td>
+                    <td>8.5%</td>
+                    <td>9%</td>
+                    <td>$1000</td>
                   </tr>
                   <tr>
-                    <td>2 - 3 years</td>
-                    <td>11.50%</td>
-                    <td>12.00%</td>
-                    <td>₹5,000</td>
+                    <td>5 Years</td>
+                    <td>8%</td>
+                    <td>8.5%</td>
+                    <td>$1,000</td>
                   </tr>
                   <tr>
-                    <td>3 - 5 years</td>
-                    <td>12.00%</td>
-                    <td>12.50%</td>
-                    <td>₹5,000</td>
+                    <td>10 Years</td>
+                    <td>7.5%</td>
+                    <td>8.0%</td>
+                    <td>$1,000</td>
                   </tr>
-                  <tr>
-                    <td>5 - 10 years</td>
-                    <td>11.75%</td>
-                    <td>12.25%</td>
-                    <td>₹5,000</td>
-                  </tr>
-                  <tr>
-                    <td>Tax Saver FD (5 years)</td>
-                    <td>11.50%</td>
-                    <td>12.00%</td>
-                    <td>₹10,000</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
@@ -958,7 +1046,7 @@
             </button>
             <div class="accordion-content px-6 pb-6">
               <p class="text-gray-600 dark:text-gray-300">
-                The minimum amount required to open a fixed deposit at DeliFin is ₹5,000 for regular FDs and ₹10,000 for Tax Saver FDs. This low entry barrier makes it accessible for most investors to start their journey towards financial security.
+                The minimum amount required to open a fixed deposit at Elite Mutual Fund is $1,000 for regular FDs and $10,000 for Tax Saver FDs. This low entry barrier makes it accessible for most investors to start their journey towards financial security.
               </p>
             </div>
           </div>
@@ -980,7 +1068,7 @@
           <div class="accordion-item bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
             <button class="accordion-header w-full flex items-center justify-between p-6 focus:outline-none" aria-expanded="false">
               <span class="text-lg font-medium text-gray-900 dark:text-white">How is the interest on fixed deposits taxed?</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0  24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="accordion-icon w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             <div class="accordion-content px-6 pb-6">
               <p class="text-gray-600 dark:text-gray-300">
@@ -997,7 +1085,7 @@
             </button>
             <div class="accordion-content px-6 pb-6">
               <p class="text-gray-600 dark:text-gray-300">
-                DeliFin offers multiple interest payout options to suit your financial needs:
+                Elite Mutual Fund offers multiple interest payout options to suit your financial needs:
               </p>
               <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600 dark:text-gray-300">
                 <li>Monthly Interest Payout: Ideal for regular income needs</li>
@@ -1056,7 +1144,7 @@
         <div class="col-span-1 md:col-span-1">
           <div class="flex items-center mb-6">
             <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
-            <span class="ml-2 text-xl font-bold">DeliFin</span>
+            <span class="ml-2 text-xl font-bold">Elite Mutual Fund</span>
           </div>
           <p class="text-gray-400 mb-6">
             Smart financial solutions for a secure future. Invest wisely, grow steadily.
@@ -1074,6 +1162,12 @@
             <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Telegram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
+                <path d="M21.05 2.39a1.5 1.5 0 0 0-1.62-.26L2.99 9.3a1.5 1.5 0 0 0 .11 2.8l3.9 1.3 1.5 4.5a1.5 1.5 0 0 0 2.5.6l2.8-2.8 3.6 2.6a1.5 1.5 0 0 0 2.4-1l2.1-13a1.5 1.5 0 0 0-.85-1.41zM10 13.1l8.08-6.48-5.35 8.22a.75.75 0 0 1-1.14.14L10 13.1z"/>
+              </svg>
+            </a>
+            
           </div>
         </div>
         
@@ -1082,10 +1176,12 @@
           <h3 class="text-lg font-medium mb-4">Quick Links</h3>
           <ul class="space-y-2">
             <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Investments</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
-            <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposits</a></li>
+            <li><a href="about-us.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+            <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit</a></li>
+            <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+            <li><a href="fixed-deposit-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit Calculator</a></li>
+            <li><a href="mutual-funds-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds Calculator</a></li>
+          
           </ul>
         </div>
         
@@ -1093,11 +1189,9 @@
         <div>
           <h3 class="text-lg font-medium mb-4">Legal</h3>
           <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Disclaimer</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Security</a></li>
+            <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+            <li><a href="cookie-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
           </ul>
         </div>
         
@@ -1115,7 +1209,7 @@
             </li>
             <li class="flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-              <span class="text-gray-400">support@delifin.com</span>
+              <span class="text-gray-400">support@elitemf.net</span>
             </li>
           </ul>
         </div>
@@ -1123,20 +1217,19 @@
       
       <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
         <p class="text-gray-400 text-sm mb-4 md:mb-0">
-          &copy; 2024 DeliFin. All rights reserved.
+          &copy; 2024 Elite Mutual Fund. All rights reserved.
         </p>
         <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
-          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
-          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
+          <a href="privacy-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+          <a href="terms-of-service.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+          <a href="cookie-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
         </div>
       </div>
     </div>
   </footer>
-
   <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize AOS animations with reduced motion preference check

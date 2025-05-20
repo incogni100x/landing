@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Elite Mutual Fund Cookie Policy - Learn how we use cookies and similar technologies on our website.">
+<title>Cookie Policy | Elite Mutual Fund - Smart Financial Solutions</title>
+
+<!-- Preload critical assets -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS - Use a production minified version -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Consolidated external libraries - Self-hosted for better performance -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<style>
+    @font-face {
+      font-family: 'BaselBook';
+      src: url('./assets/fonts/BaselBook.woff2') format('woff2');
+      font-weight: 400; /* Explicit numeric weight */
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'BaselBold';
+      src: url('./assets/fonts/BaselBold.woff2') format('woff2');
+      font-weight: 700; /* Explicit numeric weight */
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'BaselRegular';
+      src: url('./assets/fonts/BaselRegular.woff2') format('woff2');
+      font-weight: 300; /* Explicit numeric weight */
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* Base styles */
+    :root {
+      --primary-50: #eff6ff;
+      --primary-100: #dbeafe;
+      --primary-500: #3b82f6;
+      --primary-600: #2563eb;
+      --primary-700: #1d4ed8;
+      --success-500: #22c55e;
+      --warning-500: #f59e0b;
+      --danger-500: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --spacing-1: 0.25rem;
+      --spacing-2: 0.5rem;
+      --spacing-3: 0.75rem;
+      --spacing-4: 1rem;
+      --spacing-6: 1.5rem;
+      --spacing-8: 2rem;
+      --spacing-12: 3rem;
+      --spacing-16: 4rem;
+      --spacing-20: 5rem;
+      --radius-sm: 0.125rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition-fast: 150ms;
+      --transition-normal: 300ms;
+      --transition-slow: 500ms;
+      --z-header: 50;
+      --z-dropdown: 40;
+      --z-modal: 60;
+    }
+    
+    body {
+      font-family: 'BaselBook', 'Inter', sans-serif;
+      font-weight: 400; /* Explicitly set for body - BaselBook */
+      letter-spacing: normal; /* Normalize letter spacing */
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Focus styles for accessibility */
+    :focus-visible {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 2px;
+    }
+    
+    /* Skip to content link for accessibility */
+    .skip-to-content {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    
+    .skip-to-content:focus {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      padding: 1rem;
+      background: white;
+      z-index: 9999;
+      color: var(--primary-700);
+      font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure bold font for skip link */
+      font-weight: 700; /* Explicitly set for skip link */
+      letter-spacing: normal; /* Normalize letter spacing */
+    }
+    
+    /* Gradient styles */
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure gradients use explicit bold weight */
+      font-weight: 700;
+      letter-spacing: normal;
+    }
+    
+    /* Headings, explicit bold classes, buttons, and specific elements */
+    h1, h2, h3, h4, h5, h6, 
+    .font-bold, .font-extrabold, .font-semibold, 
+    button, 
+    .accordion-header span { /* Kept accordion as it might be used on policy pages */
+      font-family: 'BaselBold', 'Inter', sans-serif;
+      font-weight: 700; 
+      letter-spacing: normal;
+    }
+    
+    /* Paragraphs and specific lighter text utility classes */
+    p, 
+    .text-blue-100, .text-gray-500, .text-gray-400, .text-gray-300, .text-gray-600, 
+    .font-light {
+      font-family: 'BaselRegular', 'Inter', sans-serif; 
+      font-weight: 300; 
+      letter-spacing: normal; 
+    }
+    
+    /* Form elements like labels, selects, inputs will inherit from body (BaselBook 400) by default */
+    label, select, input {
+        font-family: 'BaselBook', 'Inter', sans-serif; /* Explicitly BaselBook for forms */
+        font-weight: 400;
+        letter-spacing: normal;
+    }
+    
+    /* Card interactions */
+    .card-hover {
+      transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    /* Navigation styles */
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--primary-600);
+      transition: width var(--transition-normal) ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+      width: 100%;
+    }
+    
+    /* Dropdown menu */
+    .dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all var(--transition-normal) ease;
+    }
+    
+    .dropdown-container:hover .dropdown,
+    .dropdown-container:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    /* Animations */
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    /* Dark mode transitions */
+    html {
+      transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+    }
+    
+    /* Accordion styles */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .accordion-item.active .accordion-content {
+      max-height: 500px; /* Adjust as needed */
+    }
+    
+    .accordion-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+    
+    /* Policy content styles (re-integrated) */
+    .policy-content h1, .policy-content h2, .policy-content h3, .policy-content h4, .policy-content h5, .policy-content h6 {
+      font-family: 'BaselBold', 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: normal;
+      margin-top: 1.5rem; /* Or var(--spacing-6) */
+      margin-bottom: 0.75rem; /* Or var(--spacing-3) */
+    }
+    
+    .policy-content p {
+      font-family: 'BaselRegular', 'Inter', sans-serif;
+      font-weight: 300;
+      letter-spacing: normal;
+      margin-bottom: 1rem; /* Or var(--spacing-4) */
+    }
+    
+    .policy-content ul, .policy-content ol {
+      font-family: 'BaselRegular', 'Inter', sans-serif;
+      font-weight: 300;
+      letter-spacing: normal;
+      margin-bottom: 1rem; /* Or var(--spacing-4) */
+      padding-left: 1.5rem; /* Or var(--spacing-6) */
+    }
+    
+    .policy-content ul {
+      list-style-type: disc;
+    }
+    
+    .policy-content ol {
+      list-style-type: decimal;
+    }
+    
+    .policy-content li {
+      margin-bottom: 0.5rem; /* Or var(--spacing-2) */
+    }
+    
+    .policy-content a {
+      color: var(--primary-600);
+      text-decoration: underline;
+      font-family: 'BaselBook', 'Inter', sans-serif; /* Links might need default book weight */
+      font-weight: 400;
+    }
+    
+    .policy-content a:hover {
+      text-decoration: none;
+    }
+    
+    .policy-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem; /* Or var(--spacing-4) */
+      font-family: 'BaselBook', 'Inter', sans-serif;
+      font-weight: 400;
+    }
+    
+    .policy-content th,
+    .policy-content td {
+      padding: 0.75rem; /* Or var(--spacing-3) */
+      border: 1px solid var(--gray-300);
+      text-align: left;
+    }
+    
+    .policy-content th {
+      font-family: 'BaselBold', 'Inter', sans-serif;
+      font-weight: 700;
+      background-color: var(--gray-100); /* Light background for table headers */
+    }
+    
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
+      .animate-float {
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .mobile-padding {
+        padding-left: var(--spacing-4);
+        padding-right: var(--spacing-4);
+      }
+      
+      .mobile-text-center {
+        text-align: center;
+      }
+      
+      .mobile-full-width {
+        width: 100%;
+      }
+      
+      .mobile-py {
+        padding-top: var(--spacing-8);
+        padding-bottom: var(--spacing-8);
+      }
+      
+      .mobile-mt {
+        margin-top: var(--spacing-6);
+      }
+      
+      .mobile-nav-container {
+        height: auto;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-normal) ease;
+      }
+      
+      .mobile-nav-container.open {
+        max-height: 100vh; /* Adjust as needed */
+      }
+    }
+    html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.max-w-7xl {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  position: relative;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+    </style>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        blue: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8'
+        }
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-white dark:bg-gray-900">
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+
+<!-- Navigation -->
+<nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 md:h-20">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">E</div>
+          <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Elite Mutual Fund</span>
+        </div>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center justify-center flex-1">
+        <div class="flex space-x-8" role="menubar">
+          <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+          <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+          <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+          
+          <!-- Calculators Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              Calculators
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="fixed-deposit-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Fixed Deposit Calculator</a>
+                <a href="mutual-fund-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Mutual Fund Calculator</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- More Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="contact-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Contact Us</a>
+              <a href="about-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">About Us</a>
+              <a href="privacy-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Privacy Policy</a>
+              <a href="terms-of-service.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Terms of Service</a>
+              <a href="cookie-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Cookie Policy</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex items-center">
+        <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </button>
+        
+        <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        
+        <!-- Mobile menu button -->
+        <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+    <div class="px-4 pt-3 pb-4 space-y-3">
+      <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
+      <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+      <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+      
+     <!-- Mobile Calculators Dropdown -->
+  <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-calculators-dropdown-button" aria-expanded="false" aria-controls="mobile-calculators-dropdown">
+        Calculators
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-calculators-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-calculators-dropdown" role="menu">
+        <a href="fixed-deposit-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Fixed Deposit Calculator</a>
+        <a href="mutual-funds-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Mutual Fund Calculator</a>
+      </div>
+    </div>
+    
+    <!-- Mobile More Dropdown -->
+    <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
+        More
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-dropdown" role="menu">
+        <a href="contact-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Contact Us</a>
+      <a href="about-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">About Us</a>
+      <a href="privacy-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Privacy Policy</a>
+      <a href="terms-of-service.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Terms of Service</a>
+      <a href="cookie-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Cookie Policy</a>
+
+      </div>
+    </div>
+    
+      
+      <div class="pt-2">
+        <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+  </nav>
+  
+
+<!-- Hero Section -->
+<section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-24" id="main-content">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-aos="fade-up">
+      <span class="block">Cookie Policy</span>
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-blue-100" data-aos="fade-up" data-aos-delay="200">
+      Last updated: May 15, 2025
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- Policy Content Section -->
+<section class="py-16 bg-white dark:bg-gray-900">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-10 policy-content" data-aos="fade-up">
+    <div class="prose prose-blue max-w-none dark:prose-invert">
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        This Cookie Policy explains how Elite Mutual Fund ("we", "us", or "our") uses cookies and similar technologies to recognize you when you visit our website. It explains what these technologies are and why we use them, as well as your rights to control our use of them.
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">1. What Are Cookies?</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their websites work, or to work more efficiently, as well as to provide reporting information.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Cookies set by the website owner (in this case, Elite Mutual Fund) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">2. Why Do We Use Cookies?</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        We use first-party and third-party cookies for several reasons. Some cookies are required for technical reasons in order for our website to operate, and we refer to these as "essential" or "strictly necessary" cookies. Other cookies also enable us to track and target the interests of our users to enhance the experience on our website. Third parties serve cookies through our website for advertising, analytics, and other purposes.
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">3. Types of Cookies We Use</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        The specific types of first and third-party cookies served through our website and the purposes they perform are described below:
+      </p>
+      
+      <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3">3.1 Essential Cookies</h4>
+      <p class="text-gray-600 dark:text-gray-300">
+        These cookies are strictly necessary to provide you with services available through our website and to use some of its features, such as access to secure areas. Because these cookies are strictly necessary to deliver the website, you cannot refuse them without impacting how our website functions.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Examples of essential cookies we use:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
+        <li>Session cookies to operate our website</li>
+        <li>Authentication cookies to identify you when you log into our website</li>
+        <li>Security cookies to prevent fraud and protect our website</li>
+      </ul>
+      
+      <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3">3.2 Performance and Functionality Cookies</h4>
+      <p class="text-gray-600 dark:text-gray-300">
+        These cookies are used to enhance the performance and functionality of our website but are non-essential to their use. However, without these cookies, certain functionality may become unavailable.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Examples of performance and functionality cookies we use:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
+        <li>Cookies to remember your preferences (such as language or region)</li>
+        <li>Cookies to remember your settings (such as dark mode preference)</li>
+        <li>Cookies to personalize the content of our website</li>
+      </ul>
+      
+      <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3">3.3 Analytics and Customization Cookies</h4>
+      <p class="text-gray-600 dark:text-gray-300">
+        These cookies collect information that is used either in aggregate form to help us understand how our website is being used or how effective our marketing campaigns are, or to help us customize our website for you.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Examples of analytics and customization cookies we use:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
+        <li>Google Analytics cookies to track user behavior on our website</li>
+        <li>Cookies to understand how visitors interact with our website</li>
+        <li>Cookies to measure the effectiveness of our advertising campaigns</li>
+      </ul>
+      
+      <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3">3.4 Advertising Cookies</h4>
+      <p class="text-gray-600 dark:text-gray-300">
+        These cookies are used to make advertising messages more relevant to you. They perform functions like preventing the same ad from continuously reappearing, ensuring that ads are properly displayed for advertisers, and in some cases selecting advertisements that are based on your interests.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Examples of advertising cookies we use:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
+        <li>Cookies to deliver personalized advertisements</li>
+        <li>Cookies to measure the effectiveness of advertisements</li>
+        <li>Cookies to limit the number of times you see an advertisement</li>
+      </ul>
+      
+      <h4 class="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3">3.5 Social Media Cookies</h4>
+      <p class="text-gray-600 dark:text-gray-300">
+        These cookies are used to enable you to share pages and content that you find interesting on our website through third-party social networking and other websites. These cookies may also be used for advertising purposes.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        Examples of social media cookies we use:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
+        <li>Facebook cookies for sharing content and tracking referrals</li>
+        <li>Twitter cookies for sharing content and tracking referrals</li>
+        <li>LinkedIn cookies for sharing content and tracking referrals</li>
+      </ul>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">4. How Can You Control Cookies?</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        You have the right to decide whether to accept or reject cookies. You can exercise your cookie preferences by clicking on the appropriate opt-out links provided in the cookie banner on our website.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        You can also set or amend your web browser controls to accept or refuse cookies. If you choose to reject cookies, you may still use our website though your access to some functionality and areas of our website may be restricted. As the means by which you can refuse cookies through your web browser controls vary from browser to browser, you should visit your browser's help menu for more information.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        In addition, most advertising networks offer you a way to opt out of targeted advertising. If you would like to find out more information, please visit:
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">5. Cookies We Use</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        The table below provides more information about the specific cookies we use and the purposes for which we use them:
+      </p>
+      
+      <div class="overflow-x-auto mt-4 mb-6">
+        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-300">
+          <thead class="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-100 dark:bg-gray-700">
+            <tr>
+              <th class="px-4 py-3">Cookie Name</th>
+              <th class="px-4 py-3">Type</th>
+              <th class="px-4 py-3">Purpose</th>
+              <th class="px-4 py-3">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <td class="px-4 py-3">_session_id</td>
+              <td class="px-4 py-3">Essential</td>
+              <td class="px-4 py-3">Used to maintain your session while browsing our website</td>
+              <td class="px-4 py-3">Session</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+              <td class="px-4 py-3">_Elite Mutual Fund_auth</td>
+              <td class="px-4 py-3">Essential</td>
+              <td class="px-4 py-3">Used to authenticate logged-in users</td>
+              <td class="px-4 py-3">30 days</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <td class="px-4 py-3">_color_theme</td>
+              <td class="px-4 py-3">Functionality</td>
+              <td class="px-4 py-3">Remembers your dark/light mode preference</td>
+              <td class="px-4 py-3">1 year</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+              <td class="px-4 py-3">_ga</td>
+              <td class="px-4 py-3">Analytics</td>
+              <td class="px-4 py-3">Used by Google Analytics to distinguish users</td>
+              <td class="px-4 py-3">2 years</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <td class="px-4 py-3">_gid</td>
+              <td class="px-4 py-3">Analytics</td>
+              <td class="px-4 py-3">Used by Google Analytics to distinguish users</td>
+              <td class="px-4 py-3">24 hours</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+              <td class="px-4 py-3">_fbp</td>
+              <td class="px-4 py-3">Advertising</td>
+              <td class="px-4 py-3">Used by Facebook to deliver advertisements</td>
+              <td class="px-4 py-3">3 months</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">6. Cookie Consent</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        When you first visit our website, we will show you a cookie banner that allows you to choose which types of cookies you accept. Essential cookies cannot be rejected as they are strictly necessary to provide you with services.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        You can change your cookie preferences at any time by clicking on the "Cookie Settings" link in the footer of our website. You may need to refresh your page for your settings to take effect.
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">7. How Often Will We Update This Cookie Policy?</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal, or regulatory reasons. Please therefore revisit this Cookie Policy regularly to stay informed about our use of cookies and related technologies.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300">
+        The date at the top of this Cookie Policy indicates when it was last updated.
+      </p>
+      
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">8. Where Can You Get Further Information?</h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        If you have any questions about our use of cookies or other technologies, please contact us at:
+      </p>
+      <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mt-4 mb-6">
+        <p class="text-gray-700 dark:text-gray-300 mb-1">Elite Mutual Fund Privacy Office</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-1">123 Financial District, Suite 456</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-1">New York, NY 10001</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-1">Email: <a href="mailto:support@elitemf.net" class="text-blue-600 dark:text-blue-400 hover:underline">support@elitemf.net</a></p>
+        <p class="text-gray-700 dark:text-gray-300">Phone: +1 (212) 555-1234</p>
+      </div>
+      
+      <p class="text-gray-600 dark:text-gray-300 mt-8">
+        By using our website and services, you acknowledge that you have read and understood this Cookie Policy.
+      </p>
+    </div>
+  </div>
+  
+  <div class="mt-12 flex justify-between items-center flex-wrap gap-4" data-aos="fade-up">
+    <a href="terms-of-service.html" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" aria-hidden="true"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Terms of Service
+    </a>
+    <a href="privacy-policy.html" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+      Privacy Policy
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2" aria-hidden="true"><path d="M5 12h14"></path><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div class="col-span-1 md:col-span-1">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+          <span class="ml-2 text-xl font-bold">Elite Mutual Fund</span>
+        </div>
+        <p class="text-gray-400 mb-6">
+          Smart financial solutions for a secure future. Invest wisely, grow steadily.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
+              <path d="M21.05 2.39a1.5 1.5 0 0 0-1.62-.26L2.99 9.3a1.5 1.5 0 0 0 .11 2.8l3.9 1.3 1.5 4.5a1.5 1.5 0 0 0 2.5.6l2.8-2.8 3.6 2.6a1.5 1.5 0 0 0 2.4-1l2.1-13a1.5 1.5 0 0 0-.85-1.41zM10 13.1l8.08-6.48-5.35 8.22a.75.75 0 0 1-1.14.14L10 13.1z"/>
+            </svg>
+          </a>
+          
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
+          <li><a href="about-us.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+          <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit</a></li>
+          <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+          <li><a href="fixed-deposit-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit Calculator</a></li>
+          <li><a href="mutual-funds-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds Calculator</a></li>
+        
+        </ul>
+      </div>
+      
+      <!-- Legal -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+          <li><a href="cookie-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Contact Us</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span class="text-gray-400">+1 (555) 123-4567</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span class="text-gray-400">support@elitemf.net</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-400 text-sm mb-4 md:mb-0">
+        &copy; 2024 Elite Mutual Fund. All rights reserved.
+      </p>
+      <div class="flex space-x-6">
+        <a href="privacy-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+        <a href="terms-of-service.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+        <a href="cookie-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- JavaScript for interactive elements -->
+<script>
+  // Initialize AOS animation library
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100,
+    disable: 'mobile'
+  });
+  
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !expanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+  
+  // Mobile dropdown toggle
+  const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
+  const mobileDropdown = document.getElementById('mobile-dropdown');
+  const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
+  
+  if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
+    mobileDropdownButton.addEventListener('click', () => {
+      const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
+      mobileDropdownButton.setAttribute('aria-expanded', !expanded);
+      mobileDropdown.classList.toggle('hidden');
+      mobileDropdownIcon.classList.toggle('rotate-180');
+    });
+  }
+  
+  // Dark mode toggle
+  const darkModeToggle = document.querySelector('[aria-label="Toggle dark mode"]');
+  
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      
+      // Save preference to localStorage
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('color-theme', 'dark');
+      } else {
+        localStorage.setItem('color-theme', 'light');
+      }
+    });
+  }
+  
+  // Check for saved theme preference or prefer-color-scheme
+  if (localStorage.getItem('color-theme') === 'dark' || 
+      (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+</body>
+</html>

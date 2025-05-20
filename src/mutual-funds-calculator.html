@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="DeliFin Mutual Fund Calculator - Calculate potential returns on your mutual fund investments with our easy-to-use calculator.">
-<title>Mutual Fund Calculator | DeliFin - Smart Financial Solutions</title>
+<meta name="description" content="Elite Mutual Fund Mutual Fund Calculator - Calculate potential returns on your mutual fund investments with our easy-to-use calculator.">
+<title>Mutual Fund Calculator | Elite Mutual Fund - Smart Financial Solutions</title>
 
 <!-- Preload critical assets -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 
 <!-- Tailwind CSS - Use a production minified version -->
 <script src="https://cdn.tailwindcss.com"></script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <!-- Chart.js for visualizations -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -21,6 +21,30 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
 <style>
+@font-face {
+  font-family: 'BaselBook';
+  src: url('/assets/fonts/BaselBook.woff2') format('woff2');
+  font-weight: 400; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselBold';
+  src: url('./assets/fonts/BaselBold.woff2') format('woff2');
+  font-weight: 700; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BaselRegular';
+  src: url('./assets/fonts/BaselRegular.woff2') format('woff2');
+  font-weight: 300; /* Explicit numeric weight */
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Base styles */
 :root {
   --primary-50: #eff6ff;
@@ -68,7 +92,9 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'BaselBook', 'Inter', sans-serif;
+  font-weight: 400; /* Explicitly set for body - BaselBook */
+  letter-spacing: normal; /* Normalize letter spacing */
   scroll-behavior: smooth;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -101,7 +127,9 @@ body {
   background: white;
   z-index: 9999;
   color: var(--primary-700);
-  font-weight: 600;
+  font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure bold font for skip link */
+  font-weight: 700; /* Explicitly set for skip link */
+  letter-spacing: normal; /* Normalize letter spacing */
 }
 
 /* Gradient styles */
@@ -115,6 +143,38 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure gradients use explicit bold weight */
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+/* Headings, explicit bold classes, buttons, and specific calculator elements */
+h1, h2, h3, h4, h5, h6, 
+.font-bold, .font-extrabold, .font-semibold, 
+.mf-table th, 
+#initial-investment, #return-rate, #returns-earned, #tax-amount, #final-amount, 
+button, 
+.accordion-header span {
+  font-family: 'BaselBold', 'Inter', sans-serif;
+  font-weight: 700; 
+  letter-spacing: normal;
+}
+
+/* Paragraphs and specific lighter text utility classes */
+p, 
+.text-blue-100, .text-gray-500, .text-gray-400, .text-gray-300, .text-gray-600, 
+.font-light {
+  font-family: 'BaselRegular', 'Inter', sans-serif; 
+  font-weight: 300; 
+  letter-spacing: normal; 
+}
+
+/* Form elements like labels, selects, inputs will inherit from body (BaselBook 400) by default */
+/* If specific styling is needed for them, it can be added here */
+label, select, input {
+    font-family: 'BaselBook', 'Inter', sans-serif; /* Explicitly BaselBook for forms */
+    font-weight: 400;
+    letter-spacing: normal;
 }
 
 /* Card interactions */
@@ -330,6 +390,26 @@ input[type="range"]::-moz-range-thumb:hover {
     max-height: 100vh;
   }
 }
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.max-w-7xl {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  position: relative;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 </style>
 <script>
 tailwind.config = {
@@ -360,92 +440,121 @@ tailwind.config = {
 
 <!-- Navigation -->
 <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm" aria-label="Main navigation">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="flex justify-between h-16 md:h-20">
-    <div class="flex items-center">
-      <div class="flex-shrink-0 flex items-center">
-        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
-        <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">DeliFin</span>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 md:h-20">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">E</div>
+          <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Elite Mutual Fund</span>
+        </div>
       </div>
-    </div>
-    
-    <!-- Desktop Navigation -->
-    <div class="hidden md:flex items-center justify-center flex-1">
-      <div class="flex space-x-8" role="menubar">
-        <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
-        <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
-        <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
-        <a href="mutual-fund-calculator.html" class="nav-link text-blue-600 dark:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem" aria-current="page">MF Calculator</a>
-        
-        <!-- Dropdown Menu -->
-        <div class="dropdown-container relative" role="menuitem">
-          <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
-            More
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
-            <div class="py-1" role="none">
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Investments</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Retirement Planning</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tax Saving</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Financial Advisory</a>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center justify-center flex-1">
+        <div class="flex space-x-8" role="menubar">
+          <a href="index.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Home</a>
+          <a href="fixed-deposit.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Fixed Deposit</a>
+          <a href="mutual-funds.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium" role="menuitem">Mutual Funds</a>
+          
+          <!-- Calculators Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              Calculators
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="fixed-deposit-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Fixed Deposit Calculator</a>
+                <a href="mutual-funds-calculator.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Mutual Fund Calculator</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- More Dropdown Menu -->
+          <div class="dropdown-container relative" role="menuitem">
+            <button class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 px-3 py-2 text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="dropdown absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu">
+              <div class="py-1" role="none">
+                <a href="contact-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Contact Us</a>
+                <a href="about-us.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">About Us</a>
+                <a href="privacy-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Privacy Policy</a>
+                <a href="terms-of-service.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Terms of Service</a>
+                <a href="cookie-policy.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Cookie Policy</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="flex items-center">
-      <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-        Get Started
-      </button>
       
-      <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      </button>
-      
-      <!-- Mobile menu button -->
-      <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
+      <div class="flex items-center">
+        <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </button>
+        
+        <button class="ml-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dark:hidden" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        
+        <!-- Mobile menu button -->
+        <button type="button" class="md:hidden ml-4 text-gray-700 dark:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="mobile-menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Mobile menu -->
-<div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
-  <div class="px-4 pt-3 pb-4 space-y-3">
-    <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
-    <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
-    <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
-    <a href="mutual-fund-calculator.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800" role="menuitem" aria-current="page">MF Calculator</a>
+  
+  <!-- Mobile menu -->
+  <div class="md:hidden hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg rounded-b-lg transform transition-all duration-300 ease-in-out" id="mobile-menu" role="menu">
+    <div class="px-4 pt-3 pb-4 space-y-3">
+      <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Home</a>
+      <a href="mutual-funds.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Mutual Funds</a>
+      <a href="fixed-deposit.html" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" role="menuitem">Fixed Deposit</a>
+      
+     <!-- Mobile Calculators Dropdown -->
+  <div class="relative">
+      <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-calculators-dropdown-button" aria-expanded="false" aria-controls="mobile-calculators-dropdown">
+        Calculators
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-calculators-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-calculators-dropdown" role="menu">
+        <a href="fixed-deposit-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Fixed Deposit Calculator</a>
+        <a href="mutual-funds-calculator.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Mutual Fund Calculator</a>
+      </div>
+    </div>
     
+    <!-- Mobile More Dropdown -->
     <div class="relative">
       <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
         More
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
-      
-      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300" id="mobile-dropdown" role="menu">
-        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Investments</a>
-        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Retirement Planning</a>
-        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Tax Saving</a>
-        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Financial Advisory</a>
+      <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-dropdown" role="menu">
+        <a href="contact-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Contact Us</a>
+      <a href="about-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">About Us</a>
+      <a href="privacy-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Privacy Policy</a>
+      <a href="terms-of-service.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Terms of Service</a>
+      <a href="cookie-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Cookie Policy</a>
+
       </div>
     </div>
     
-    <div class="pt-2">
-      <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-        Get Started
-      </a>
+      
+      <div class="pt-2">
+        <a href="#" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Get Started
+        </a>
+      </div>
     </div>
   </div>
-</div>
-</nav>
+  </nav>
+  
 
 <!-- Hero Section -->
-<section class="hero-gradient pt-28 pb-16 md:pt-36 md:pb-28" id="main-content">
+<section class="hero-gradient min-h-screen flex flex-col justify-center pt-32 pb-16 md:pt-40 md:pb-28" id="main-content">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="text-center max-w-3xl mx-auto">
     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight" data-aos="fade-up">
@@ -507,12 +616,22 @@ tailwind.config = {
           <label for="fund" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Fund</label>
           <div class="relative">
             <select id="fund" name="fund" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-              <option value="equity-large">Equity Large Cap - 12%</option>
-              <option value="equity-mid">Equity Mid Cap - 14%</option>
-              <option value="equity-small">Equity Small Cap - 16%</option>
-              <option value="hybrid">Hybrid Fund - 10%</option>
-              <option value="debt">Debt Fund - 8%</option>
-              <option value="index">Index Fund - 11%</option>
+              <option value="fidelity-magellan">Fidelity Magellan Fund - 12.5%</option>
+<option value="vanguard-global-equity">Vanguard Global Equity Fund - 10.5%</option>
+<option value="pimco-total-return">PIMCO Total Return Fund - 8.2%</option>
+<option value="trowe-blue-chip-growth">T. Rowe Price Blue Chip Growth Fund - 7.5%</option>
+<option value="american-growth-of-america">American Funds Growth Fund of America - 7%</option>
+<option value="jpmorgan-large-cap-growth">JPMorgan Large Cap Growth Fund - 6.2%</option>
+<option value="vanguard-500-index">Vanguard 500 Index Fund - 5%</option>
+<option value="dodge-cox-stock">Dodge & Cox Stock Fund - 3.5%</option>
+<option value="trowe-equity-income">T. Rowe Price Equity Income Fund - 3.3%</option>
+<option value="franklin-templeton-growth">Franklin Templeton Growth Fund - 3.2%</option>
+<option value="trowe-growth-stock">T. Rowe Price Growth Stock Fund - 2%</option>
+<option value="vanguard-dividend-growth">Vanguard Dividend Growth Fund - 1.7%</option>
+<option value="american-capital-income-builder">American Funds Capital Income Builder - 1%</option>
+<option value="vanguard-total-stock-market">Vanguard Total Stock Market Index Fund - 0.9%</option>
+<option value="fidelity-contrafund">Fidelity Contrafund - 0.5%</option>
+
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -531,12 +650,13 @@ tailwind.config = {
         
         <!-- Investment Duration -->
         <div>
-          <div class="flex justify-between items-center mb-2">
-            <label for="duration" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Duration (Years)</label>
-            <span id="duration-value" class="text-sm text-gray-500 dark:text-gray-400">5 years</span>
-          </div>
-          <input type="range" id="duration" name="duration" min="1" max="30" step="1" value="5" class="w-full">
-        </div>
+  <div class="flex justify-between items-center mb-2">
+    <label for="duration" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Duration (Weeks)</label>
+    <span id="duration-value" class="text-sm text-gray-500 dark:text-gray-400">5 weeks</span>
+  </div>
+  <input type="range" id="duration" name="duration" min="1" max="52" step="1" value="5" class="w-full">
+</div>
+
         
         <!-- Expected Return Rate (Optional) -->
         <div id="custom-return-container" class="hidden">
@@ -634,43 +754,98 @@ tailwind.config = {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="font-medium">Equity Large Cap</td>
-            <td class="text-green-600 dark:text-green-400">12%</td>
-            <td>Moderate to High</td>
-            <td>5+ years</td>
-          </tr>
-          <tr>
-            <td class="font-medium">Equity Mid Cap</td>
-            <td class="text-green-600 dark:text-green-400">14%</td>
-            <td>High</td>
-            <td>7+ years</td>
-          </tr>
-          <tr>
-            <td class="font-medium">Equity Small Cap</td>
-            <td class="text-green-600 dark:text-green-400">16%</td>
-            <td>Very High</td>
-            <td>10+ years</td>
-          </tr>
-          <tr>
-            <td class="font-medium">Hybrid Fund</td>
-            <td class="text-green-600 dark:text-green-400">10%</td>
-            <td>Moderate</td>
-            <td>3-5 years</td>
-          </tr>
-          <tr>
-            <td class="font-medium">Debt Fund</td>
-            <td class="text-green-600 dark:text-green-400">8%</td>
-            <td>Low to Moderate</td>
-            <td>1-3 years</td>
-          </tr>
-          <tr>
-            <td class="font-medium">Index Fund</td>
-            <td class="text-green-600 dark:text-green-400">11%</td>
-            <td>Moderate</td>
-            <td>5+ years</td>
-          </tr>
-        </tbody>
+  <tr>
+    <td class="font-medium">Fidelity Magellan Fund</td>
+    <td class="text-green-600 dark:text-green-400">12.5%</td>
+    <td>High</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Vanguard Global Equity Fund</td>
+    <td class="text-green-600 dark:text-green-400">10.5%</td>
+    <td>Moderate to High</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">PIMCO Total Return Fund</td>
+    <td class="text-green-600 dark:text-green-400">8.2%</td>
+    <td>Low to Moderate</td>
+    <td>3+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">T. Rowe Price Blue Chip Growth Fund</td>
+    <td class="text-green-600 dark:text-green-400">7.5%</td>
+    <td>Moderate</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">American Funds Growth Fund of America</td>
+    <td class="text-green-600 dark:text-green-400">7%</td>
+    <td>Moderate to High</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">JPMorgan Large Cap Growth Fund</td>
+    <td class="text-green-600 dark:text-green-400">6.2%</td>
+    <td>Moderate</td>
+    <td>3–5 years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Vanguard 500 Index Fund</td>
+    <td class="text-green-600 dark:text-green-400">5%</td>
+    <td>Moderate</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Dodge & Cox Stock Fund</td>
+    <td class="text-green-600 dark:text-green-400">3.5%</td>
+    <td>Moderate</td>
+    <td>3+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">T. Rowe Price Equity Income Fund</td>
+    <td class="text-green-600 dark:text-green-400">3.3%</td>
+    <td>Low to Moderate</td>
+    <td>3+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Franklin Templeton Growth Fund</td>
+    <td class="text-green-600 dark:text-green-400">3.2%</td>
+    <td>Moderate</td>
+    <td>3–5 years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">T. Rowe Price Growth Stock Fund</td>
+    <td class="text-green-600 dark:text-green-400">2%</td>
+    <td>Moderate to High</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Vanguard Dividend Growth Fund</td>
+    <td class="text-green-600 dark:text-green-400">1.7%</td>
+    <td>Low</td>
+    <td>3+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">American Funds Capital Income Builder</td>
+    <td class="text-green-600 dark:text-green-400">1%</td>
+    <td>Low</td>
+    <td>1–3 years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Vanguard Total Stock Market Index Fund</td>
+    <td class="text-green-600 dark:text-green-400">0.9%</td>
+    <td>Low to Moderate</td>
+    <td>5+ years</td>
+  </tr>
+  <tr>
+    <td class="font-medium">Fidelity Contrafund</td>
+    <td class="text-green-600 dark:text-green-400">0.5%</td>
+    <td>Low</td>
+    <td>1–3 years</td>
+  </tr>
+</tbody>
+
       </table>
     </div>
   </div>
@@ -933,7 +1108,7 @@ tailwind.config = {
       <div class="mb-8 md:mb-0 md:mr-8 text-center md:text-left">
         <h2 class="text-3xl font-bold text-white mb-4">Ready to Start Investing?</h2>
         <p class="text-blue-100 text-lg max-w-2xl">
-          Use our calculator to plan your investments, then take the next step toward financial security with DeliFin's diverse mutual fund options.
+          Use our calculator to plan your investments, then take the next step toward financial security with Elite Mutual Fund's diverse mutual fund options.
         </p>
       </div>
       <div class="flex flex-col sm:flex-row gap-4">
@@ -952,93 +1127,98 @@ tailwind.config = {
 
 <!-- Footer -->
 <footer class="bg-gray-900 text-white" aria-labelledby="footer-heading">
-<h2 id="footer-heading" class="sr-only">Footer</h2>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-    <!-- Company Info -->
-    <div class="col-span-1 md:col-span-1">
-      <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
-        <span class="ml-2 text-xl font-bold">DeliFin</span>
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div class="col-span-1 md:col-span-1">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+          <span class="ml-2 text-xl font-bold">Elite Mutual Fund</span>
+        </div>
+        <p class="text-gray-400 mb-6">
+          Smart financial solutions for a secure future. Invest wisely, grow steadily.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
+              <path d="M21.05 2.39a1.5 1.5 0 0 0-1.62-.26L2.99 9.3a1.5 1.5 0 0 0 .11 2.8l3.9 1.3 1.5 4.5a1.5 1.5 0 0 0 2.5.6l2.8-2.8 3.6 2.6a1.5 1.5 0 0 0 2.4-1l2.1-13a1.5 1.5 0 0 0-.85-1.41zM10 13.1l8.08-6.48-5.35 8.22a.75.75 0 0 1-1.14.14L10 13.1z"/>
+            </svg>
+          </a>
+          
+        </div>
       </div>
-      <p class="text-gray-400 mb-6">
-        Smart financial solutions for a secure future. Invest wisely, grow steadily.
+      
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
+          <li><a href="about-us.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
+          <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit</a></li>
+          <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
+          <li><a href="fixed-deposit-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposit Calculator</a></li>
+          <li><a href="mutual-funds-calculator.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds Calculator</a></li>
+        
+        </ul>
+      </div>
+      
+      <!-- Legal -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
+          <li><a href="cookie-policy.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Contact Us</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span class="text-gray-400">+1 (555) 123-4567</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span class="text-gray-400">support@elitemf.net</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-400 text-sm mb-4 md:mb-0">
+        &copy; 2024 Elite Mutual Fund. All rights reserved.
       </p>
-      <div class="flex space-x-4">
-        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
-        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-        </a>
-        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
+      <div class="flex space-x-6">
+        <a href="privacy-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
+        <a href="terms-of-service.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
+        <a href="cookie-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
       </div>
     </div>
-    
-    <!-- Quick Links -->
-    <div>
-      <h3 class="text-lg font-medium mb-4">Quick Links</h3>
-      <ul class="space-y-2">
-        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Home</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">About Us</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Investments</a></li>
-        <li><a href="mutual-funds.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Mutual Funds</a></li>
-        <li><a href="fixed-deposit.html" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Fixed Deposits</a></li>
-      </ul>
-    </div>
-    
-    <!-- Legal -->
-    <div>
-      <h3 class="text-lg font-medium mb-4">Legal</h3>
-      <ul class="space-y-2">
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Privacy Policy</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Terms of Service</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Cookie Policy</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Disclaimer</a></li>
-        <li><a href="#" class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:underline">Security</a></li>
-      </ul>
-    </div>
-    
-    <!-- Contact -->
-    <div>
-      <h3 class="text-lg font-medium mb-4">Contact Us</h3>
-      <ul class="space-y-2">
-        <li class="flex items-start">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2 mt-0.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          <span class="text-gray-400">123 Finance Street, New York, NY 10001</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          <span class="text-gray-400">+1 (555) 123-4567</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400 mr-2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          <span class="text-gray-400">support@delifin.com</span>
-        </li>
-      </ul>
-    </div>
   </div>
-  
-  <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-    <p class="text-gray-400 text-sm mb-4 md:mb-0">
-      &copy; 2024 DeliFin. All rights reserved.
-    </p>
-    <div class="flex space-x-6">
-      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Privacy Policy</a>
-      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Terms of Service</a>
-      <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors focus:outline-none focus:underline">Cookie Policy</a>
-    </div>
-  </div>
-</div>
 </footer>
 
 <!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -1171,31 +1351,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Custom return rate toggle
+  // Custom return toggle functionality
   const customReturnToggle = document.getElementById('custom-return-toggle');
   const customReturnContainer = document.getElementById('custom-return-container');
-  
   if (customReturnToggle && customReturnContainer) {
     customReturnToggle.addEventListener('change', function() {
-      if (this.checked) {
-        customReturnContainer.classList.remove('hidden');
-      } else {
-        customReturnContainer.classList.add('hidden');
-      }
+      if (this.checked) customReturnContainer.classList.remove('hidden');
+      else customReturnContainer.classList.add('hidden');
     });
   }
-  
-  // Fund data
+
   const fundData = {
-    'equity-large': { name: 'Equity Large Cap', rate: 12.0 },
-    'equity-mid': { name: 'Equity Mid Cap', rate: 14.0 },
-    'equity-small': { name: 'Equity Small Cap', rate: 16.0 },
-    'hybrid': { name: 'Hybrid Fund', rate: 10.0 },
-    'debt': { name: 'Debt Fund', rate: 8.0 },
-    'index': { name: 'Index Fund', rate: 11.0 }
+    'fidelity-magellan': { name: 'Fidelity Magellan Fund', rate: 12.5 },
+    'vanguard-global-equity': { name: 'Vanguard Global Equity Fund', rate: 10.5 },
+    'pimco-total-return': { name: 'PIMCO Total Return Fund', rate: 8.2 },
+    'trowe-blue-chip-growth': { name: 'T. Rowe Price Blue Chip Growth Fund', rate: 7.5 },
+    'american-growth-of-america': { name: 'American Funds Growth Fund of America', rate: 7.0 },
+    'jpmorgan-large-cap-growth': { name: 'JPMorgan Large Cap Growth Fund', rate: 6.2 },
+    'vanguard-500-index': { name: 'Vanguard 500 Index Fund', rate: 5.0 },
+    'dodge-cox-stock': { name: 'Dodge & Cox Stock Fund', rate: 3.5 },
+    'trowe-equity-income': { name: 'T. Rowe Price Equity Income Fund', rate: 3.3 },
+    'franklin-templeton-growth': { name: 'Franklin Templeton Growth Fund', rate: 3.2 },
+    'trowe-growth-stock': { name: 'T. Rowe Price Growth Stock Fund', rate: 2.0 },
+    'vanguard-dividend-growth': { name: 'Vanguard Dividend Growth Fund', rate: 1.7 },
+    'american-capital-income-builder': { name: 'American Funds Capital Income Builder', rate: 1.0 },
+    'vanguard-total-stock-market': { name: 'Vanguard Total Stock Market Index Fund', rate: 0.9 },
+    'fidelity-contrafund': { name: 'Fidelity Contrafund', rate: 0.5 }
   };
-  
-  // Calculator functionality
+
   const calculatorForm = document.getElementById('calculator-form');
   const amountSlider = document.getElementById('amount');
   const amountValue = document.getElementById('amount-value');
@@ -1206,160 +1389,92 @@ document.addEventListener('DOMContentLoaded', function() {
   const taxRateSlider = document.getElementById('taxRate');
   const taxRateValue = document.getElementById('tax-rate-value');
   const fundSelect = document.getElementById('fund');
-  
-  // Initialize chart
   let growthChart;
-  
-  // Format currency
+
   function formatCurrency(value) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
   }
-  
-  // Update sliders display values
-  amountSlider.addEventListener('input', function() {
+
+  amountSlider.addEventListener('input', function () {
     amountValue.textContent = formatCurrency(this.value);
   });
-  
-  durationSlider.addEventListener('input', function() {
-    durationValue.textContent = `${this.value} ${this.value === '1' ? 'year' : 'years'}`;
+
+  durationSlider.addEventListener('input', function () {
+    durationValue.textContent = `${this.value} ${this.value === '1' ? 'week' : 'weeks'}`;
   });
-  
-  customReturnSlider.addEventListener('input', function() {
+
+  customReturnSlider.addEventListener('input', function () {
     customReturnValue.textContent = `${this.value}%`;
   });
-  
-  taxRateSlider.addEventListener('input', function() {
+
+  taxRateSlider.addEventListener('input', function () {
     taxRateValue.textContent = `${this.value}%`;
   });
-  
-  // Calculate mutual fund returns
+
   function calculateMFReturns(principal, rate, time, isSIP, sipAmount) {
-    // Convert percentage to decimal
     rate = rate / 100;
-    
     let finalAmount = 0;
     let totalInvestment = 0;
-    
     if (isSIP) {
-      // SIP calculation
-      const monthlyRate = rate / 12;
-      const months = time * 12;
-      
-      // Formula: P × ((1 + r)^n - 1) / r × (1 + r)
-      finalAmount = sipAmount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-      totalInvestment = sipAmount * months;
+      const weeklyRate = rate;
+      const weeks = time;
+      finalAmount = sipAmount * ((Math.pow(1 + weeklyRate, weeks) - 1) / weeklyRate) * (1 + weeklyRate);
+      totalInvestment = sipAmount * weeks;
     } else {
-      // Lump sum calculation
       finalAmount = principal * Math.pow(1 + rate, time);
       totalInvestment = principal;
     }
-    
     const returns = finalAmount - totalInvestment;
-    
-    return {
-      finalAmount: finalAmount,
-      returns: returns,
-      totalInvestment: totalInvestment
-    };
+    return { finalAmount, returns, totalInvestment };
   }
-  
-  // Generate time-based data for chart
+
   function generateTimeData(principal, rate, maxTime, isSIP, sipAmount) {
     const data = [];
-    const timePoints = Math.min(maxTime * 2, 30); // Number of points to plot
+    const timePoints = Math.min(maxTime, 30);
     const timeStep = maxTime / timePoints;
-    
     for (let i = 0; i <= timePoints; i++) {
       const time = i * timeStep;
       const result = calculateMFReturns(principal, rate, time, isSIP, sipAmount);
       data.push({ time, value: result.finalAmount, investment: result.totalInvestment });
     }
-    
     return data;
   }
-  
-  // Update chart
+
   function updateChart(timeData) {
     const ctx = document.getElementById('growth-chart').getContext('2d');
-    
-    // Destroy previous chart if it exists
-    if (growthChart) {
-      growthChart.destroy();
-    }
-    
+    if (growthChart) growthChart.destroy();
     const times = timeData.map(data => data.time.toFixed(1));
     const values = timeData.map(data => data.value);
     const investments = timeData.map(data => data.investment);
-    
     growthChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: times,
         datasets: [
-          {
-            label: 'Investment Value',
-            data: values,
-            borderColor: '#2563eb',
-            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-            fill: true,
-            tension: 0.4
-          },
-          {
-            label: 'Amount Invested',
-            data: investments,
-            borderColor: '#9ca3af',
-            backgroundColor: 'rgba(156, 163, 175, 0.1)',
-            borderDash: [5, 5],
-            fill: false,
-            tension: 0.1
-          }
+          { label: 'Investment Value', data: values, borderColor: '#2563eb', backgroundColor: 'rgba(37, 99, 235, 0.1)', fill: true, tension: 0.4 },
+          { label: 'Amount Invested', data: investments, borderColor: '#9ca3af', backgroundColor: 'rgba(156, 163, 175, 0.1)', borderDash: [5, 5], fill: false, tension: 0.1 }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
-              }
-            }
-          }
-        },
+        plugins: { tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${formatCurrency(ctx.raw)}` } } },
         scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Time (Years)'
-            }
-          },
+          x: { title: { display: true, text: 'Time (Weeks)' } },
           y: {
             beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Value ($)'
-            },
+            title: { display: true, text: 'Value ($)' },
             ticks: {
-              callback: function(value) {
-                if (value >= 1000000) {
-                  return '$' + (value / 1000000).toFixed(1) + 'M';
-                } else if (value >= 1000) {
-                  return '$' + (value / 1000).toFixed(1) + 'K';
-                }
-                return '$' + value;
-              }
+              callback: val => val >= 1_000_000 ? '$' + (val / 1_000_000).toFixed(1) + 'M' : val >= 1_000 ? '$' + (val / 1_000).toFixed(1) + 'K' : '$' + val
             }
           }
         }
       }
     });
   }
-  
-  // Form submission
-  calculatorForm.addEventListener('submit', function(e) {
+
+  calculatorForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    
     const investmentType = document.querySelector('input[name="investmentType"]:checked').value;
     const amount = parseFloat(amountSlider.value);
     const duration = parseFloat(durationSlider.value);
@@ -1367,49 +1482,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const isSIP = investmentType === 'sip';
     const sipAmount = isSIP ? amount : 0;
     const lumpSumAmount = isSIP ? 0 : amount;
-    
-    // Get rate based on fund selection or custom rate
-    let rate;
-    let fundName;
-    
-    if (customReturnToggle.checked) {
-      rate = parseFloat(customReturnSlider.value);
-      fundName = 'Custom';
-    } else {
-      const selectedFund = fundSelect.value;
-      rate = fundData[selectedFund].rate;
-      fundName = fundData[selectedFund].name;
-    }
-    
-    // Calculate returns
+    let rate = customReturnToggle.checked ? parseFloat(customReturnSlider.value) : fundData[fundSelect.value].rate;
     const result = calculateMFReturns(lumpSumAmount, rate, duration, isSIP, sipAmount);
-    const finalAmount = result.finalAmount;
-    const returns = result.returns;
-    const totalInvestment = result.totalInvestment;
-    const taxAmount = (returns * taxRate) / 100;
-    const afterTaxAmount = finalAmount - taxAmount;
-    
-    // Update results
-    document.getElementById('initial-investment').textContent = formatCurrency(totalInvestment);
+    const taxAmount = (result.returns * taxRate) / 100;
+    const afterTaxAmount = result.finalAmount - taxAmount;
+    document.getElementById('initial-investment').textContent = formatCurrency(result.totalInvestment);
     document.getElementById('return-rate').textContent = `${rate.toFixed(1)}%`;
-    document.getElementById('returns-earned').textContent = formatCurrency(returns);
+    document.getElementById('returns-earned').textContent = formatCurrency(result.returns);
     document.getElementById('tax-amount').textContent = formatCurrency(taxAmount);
     document.getElementById('final-amount').textContent = formatCurrency(afterTaxAmount);
-    
-    // Generate and update chart
     const timeData = generateTimeData(lumpSumAmount, rate, duration, isSIP, sipAmount);
     updateChart(timeData);
   });
-  
-  // Initialize with default values
-  const defaultRate = 12.0; // Equity Large Cap rate
-  const defaultDuration = 5; // 5 years
+
+  const defaultRate = 12.0;
+  const defaultDuration = 5;
   const timeData = generateTimeData(10000, defaultRate, defaultDuration, false, 0);
   updateChart(timeData);
-  
-  // Trigger calculation on page load
   calculatorForm.dispatchEvent(new Event('submit'));
 });
 </script>
+
 </body>
 </html>

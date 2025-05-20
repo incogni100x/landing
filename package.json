@@ -1,0 +1,34 @@
+{
+  "name": "hompage",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A modern, responsive website for financial services including Mutual Funds, Fixed Deposits, and investment calculators.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/incogni100x/landing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/incogni100x/landing/issues"
+  },
+  "homepage": "https://github.com/incogni100x/landing#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "chart.js": "^4.4.9",
+    "swiper": "^11.2.7"
+  }
+}
