@@ -63,6 +63,24 @@ document.addEventListener('DOMContentLoaded', function() {
       mobileMenu.classList.toggle('hidden');
     });
   }
+
+  // Mobile calculators dropdown toggle
+  const mobileCalculatorsButton = document.getElementById('mobile-calculators-dropdown-button');
+  const mobileCalculatorsDropdown = document.getElementById('mobile-calculators-dropdown');
+
+  if (mobileCalculatorsButton && mobileCalculatorsDropdown) {
+    mobileCalculatorsButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior if it's an anchor
+      const expanded = mobileCalculatorsButton.getAttribute('aria-expanded') === 'true';
+      mobileCalculatorsButton.setAttribute('aria-expanded', String(!expanded));
+      mobileCalculatorsDropdown.classList.toggle('hidden');
+      // Optional: rotate icon if an icon element exists
+      const icon = mobileCalculatorsButton.querySelector('svg'); // Assuming SVG is the icon
+      if (icon) {
+        icon.classList.toggle('rotate-180');
+      }
+    });
+  }
   
   // Initialize testimonial slider with improved accessibility
   if (typeof Swiper !== 'undefined') {
