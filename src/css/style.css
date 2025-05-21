@@ -209,6 +209,31 @@ body {
   animation: blurFadeOnly 0.8s ease-out forwards;
 }
 
+/* Floating Stars Animation */
+.floating-star {
+  position: absolute;
+  opacity: 0.25;
+  animation: floatStar 12s infinite ease-in-out, twinkle 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+@keyframes floatStar {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px) rotate(15deg);
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; filter: drop-shadow(0 0 6px currentColor); }
+  50% { opacity: 0.6; filter: drop-shadow(0 0 12px currentColor); }
+}
+
 /* Swiper customization */
 .swiper-pagination-bullet-active {
   background-color: var(--primary-600) !important;
