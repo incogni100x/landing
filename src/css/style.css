@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-x: hidden;
+}
+
 @font-face {
   font-family: 'BaselBook';
   src: url('../assets/fonts/BaselBook.woff2') format('woff2');
@@ -36,6 +40,40 @@
   --success-500: #22c55e;
   --warning-500: #f59e0b;
   --danger-500: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --z-header: 50;
+  --z-dropdown: 40;
+  --z-modal: 60;
 }
 
 body {
@@ -49,3 +87,391 @@ body {
 }
 
 /* Add all your other existing styles here */
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  background: white;
+  z-index: 9999;
+  color: var(--primary-700);
+  font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure bold font for skip link */
+  font-weight: 700; /* Explicitly set for skip link */
+  letter-spacing: normal; /* Normalize letter spacing */
+}
+
+/* Gradient styles */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-family: 'BaselBold', 'Inter', sans-serif;
+  font-weight: 700; /* Ensure gradients use explicit bold weight */
+  letter-spacing: normal; /* Normalize letter spacing */
+}
+
+/* Card interactions */
+.card-hover {
+  transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Navigation styles */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-600);
+  transition: width var(--transition-normal) ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Dropdown menu */
+.dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all var(--transition-normal) ease;
+}
+
+.dropdown-container:hover .dropdown,
+.dropdown-container:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes blurFadeOnly {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.word {
+  opacity: 0;
+  filter: blur(10px);
+  animation: blurFadeOnly 0.8s ease-out forwards;
+}
+
+/* Swiper customization */
+.swiper-pagination-bullet-active {
+  background-color: var(--primary-600) !important;
+}
+
+/* Dark mode transitions */
+html {
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+/* Animated counter */
+.counter-value {
+  transition: all var(--transition-slow) ease;
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  border-radius: var(--radius-lg);
+  z-index: 0;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-600), var(--primary-500), #60a5fa);
+  z-index: -1;
+  border-radius: var(--radius-xl);
+  animation: borderAnimation 3s ease infinite;
+}
+
+@keyframes borderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animated background */
+.animated-bg {
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.font-light, .text-blue-100, .text-gray-500, .text-gray-400, .text-gray-300, .text-gray-600, p {
+  font-family: 'BaselRegular', 'Inter', sans-serif; /* Apply BaselRegular to lighter text elements */
+  font-weight: 300; /* Ensure light weight */
+  letter-spacing: normal; /* Normalize letter spacing for light text too */
+}
+
+/* Headings, explicit bold classes, buttons, and specific calculator/table elements */
+h1, h2, h3, h4, h5, h6,
+.font-bold, .font-extrabold, .font-semibold,
+.mf-table th, .fd-table th,
+#initial-investment, #return-rate, #returns-earned, #tax-amount, #final-amount,
+#interest-rate,
+button:not(.nav-link),
+.accordion-header span,
+.skip-to-content:focus, /* Ensure skip link is bold */
+.text-gradient /* Ensure text gradient is bold */ {
+  font-family: 'BaselBold', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+/* Form elements like labels, selects, inputs */
+label, select, input, textarea {
+    font-family: 'BaselBook', 'Inter', sans-serif; /* Explicitly BaselBook for forms */
+    font-weight: 400;
+    letter-spacing: normal;
+}
+
+/* Accordion styles */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 1000px; /* Adjust as needed for content */
+  transition: max-height 0.5s ease-in;
+}
+
+.accordion-header svg {
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-header svg {
+  transform: rotate(180deg);
+}
+
+/* Table styles */
+.mf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--spacing-6);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  overflow: hidden; /* Ensures border radius is applied to corners */
+}
+
+.mf-table th,
+.mf-table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.mf-table th {
+  background-color: var(--gray-50);
+  color: var(--gray-700);
+  text-transform: uppercase;
+  font-size: 0.875rem; /* Tailwind 'text-sm' equivalent */
+}
+
+.mf-table td {
+  color: var(--gray-600);
+  font-size: 0.9375rem; /* Slightly larger than text-sm for readability */
+}
+
+.mf-table tbody tr:nth-child(even) {
+  background-color: var(--gray-50);
+}
+
+.mf-table tbody tr:hover {
+  background-color: var(--primary-50);
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal) ease, visibility var(--transition-normal) ease;
+  z-index: var(--z-modal);
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 500px;
+  transform: scale(0.95);
+  transition: transform var(--transition-normal) ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray-500);
+}
+
+.modal-close:hover {
+    color: var(--gray-700);
+}
+
+/* Filter button styles */
+.filter-button {
+  padding: var(--spacing-2) var(--spacing-4);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  background-color: white;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.filter-button:hover {
+  background-color: var(--gray-100);
+  border-color: var(--gray-400);
+}
+
+.filter-button.active {
+  background-color: var(--primary-500);
+  color: white;
+  border-color: var(--primary-500);
+}
+
+/* Custom Range Slider Styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: var(--radius-sm);
+  outline: none;
+  opacity: 0.9;
+  transition: opacity .2s;
+}
+
+input[type="range"]:hover {
+  opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-500);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: var(--shadow-sm);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px; /* Slightly smaller to account for border diff */
+  height: 18px;
+  background: var(--primary-500);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: var(--shadow-sm);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: var(--gray-200);
+  border-radius: var(--radius-sm);
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: var(--gray-200);
+  border-radius: var(--radius-sm);
+}

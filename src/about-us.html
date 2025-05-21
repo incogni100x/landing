@@ -12,453 +12,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Tailwind CSS - Use a production minified version -->
-<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="/css/style.css" />
 
 <!-- Consolidated external libraries - Self-hosted for better performance -->
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-<style>
-@font-face {
-  font-family: 'BaselBook';
-  src: url('./assets/fonts/BaselBook.woff2') format('woff2');
-  font-weight: 400; /* Explicit numeric weight */
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BaselBold';
-  src: url('./assets/fonts/BaselBold.woff2') format('woff2');
-  font-weight: 700; /* Explicit numeric weight */
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BaselRegular';
-  src: url('./assets/fonts/BaselRegular.woff2') format('woff2');
-  font-weight: 300; /* Explicit numeric weight */
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Base styles */
-:root {
-  --primary-50: #eff6ff;
-  --primary-100: #dbeafe;
-  --primary-500: #3b82f6;
-  --primary-600: #2563eb;
-  --primary-700: #1d4ed8;
-  --success-500: #22c55e;
-  --warning-500: #f59e0b;
-  --danger-500: #ef4444;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-12: 3rem;
-  --spacing-16: 4rem;
-  --spacing-20: 5rem;
-  --radius-sm: 0.125rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --transition-fast: 150ms;
-  --transition-normal: 300ms;
-  --transition-slow: 500ms;
-  --z-header: 50;
-  --z-dropdown: 40;
-  --z-modal: 60;
-}
-
-body {
-  font-family: 'BaselBook', 'Inter', sans-serif;
-  font-weight: 400; /* Explicitly set for body - BaselBook */
-  letter-spacing: normal; /* Normalize letter spacing */
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Focus styles for accessibility */
-:focus-visible {
-  outline: 2px solid var(--primary-500);
-  outline-offset: 2px;
-}
-
-/* Skip to content link for accessibility */
-.skip-to-content {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.skip-to-content:focus {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
-  padding: 1rem;
-  background: white;
-  z-index: 9999;
-  color: var(--primary-700);
-  font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure bold font for skip link */
-  font-weight: 700; /* Explicitly set for skip link */
-  letter-spacing: normal; /* Normalize letter spacing */
-}
-
-/* Gradient styles */
-.hero-gradient {
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-}
-
-.text-gradient {
-  background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-500) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-family: 'BaselBold', 'Inter', sans-serif; /* Ensure gradients use explicit bold weight */
-  font-weight: 700;
-  letter-spacing: normal;
-}
-
-/* Headings, explicit bold classes, buttons, and specific elements */
-h1, h2, h3, h4, h5, h6, 
-.font-bold, .font-extrabold, .font-semibold, 
-/* .mf-table th,  -- Removed as not present on about-us.html */
-/* #initial-investment, #return-rate, #returns-earned, #tax-amount, #final-amount, -- Removed as not present on about-us.html */
-button, 
-.accordion-header span { /* Assuming accordion might be used, keeping this */
-  font-family: 'BaselBold', 'Inter', sans-serif;
-  font-weight: 700; 
-  letter-spacing: normal;
-}
-
-/* Paragraphs and specific lighter text utility classes */
-p, 
-.text-blue-100, .text-gray-500, .text-gray-400, .text-gray-300, .text-gray-600, 
-.font-light {
-  font-family: 'BaselRegular', 'Inter', sans-serif; 
-  font-weight: 300; 
-  letter-spacing: normal; 
-}
-
-/* Form elements like labels, selects, inputs will inherit from body (BaselBook 400) by default */
-/* If specific styling is needed for them, it can be added here */
-label, select, input {
-    font-family: 'BaselBook', 'Inter', sans-serif; /* Explicitly BaselBook for forms */
-    font-weight: 400;
-    letter-spacing: normal;
-}
-
-/* Card interactions */
-.card-hover {
-  transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-xl);
-}
-
-/* Navigation styles */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--primary-600);
-  transition: width var(--transition-normal) ease;
-}
-
-.nav-link:hover::after,
-.nav-link:focus::after {
-  width: 100%;
-}
-
-/* Dropdown menu */
-.dropdown {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all var(--transition-normal) ease;
-}
-
-.dropdown-container:hover .dropdown,
-.dropdown-container:focus-within .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Animations */
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
-}
-
-/* Dark mode transitions */
-html {
-  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
-}
-
-/* Accordion styles (if needed on about-us page) */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.accordion-item.active .accordion-content {
-  max-height: 500px; /* Adjust as needed */
-}
-
-.accordion-icon {
-  transition: transform 0.3s ease;
-}
-
-.accordion-item.active .accordion-icon {
-  transform: rotate(180deg);
-}
-
-/* Timeline styles (unique to about-us.html - re-integrated) */
-.timeline-container {
-  position: relative;
-}
-
-.timeline-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background-color: var(--primary-100); /* Or var(--gray-200) for a more subtle line */
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 2rem; /* Or var(--spacing-8) */
-}
-
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
-
-.timeline-content {
-  position: relative;
-  width: calc(50% - 2rem); /* 2rem is for spacing from the center line */
-  padding: 1.5rem; /* Or var(--spacing-6) */
-  background-color: var(--gray-50);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-  left: calc(50% + 2rem);
-  text-align: left;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-  left: 0;
-  text-align: right;
-}
-
-.timeline-dot {
-  position: absolute;
-  top: 0.5rem; /* Adjust for vertical alignment with content */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1rem; /* Or var(--spacing-4) */
-  height: 1rem; /* Or var(--spacing-4) */
-  background-color: var(--primary-600);
-  border-radius: 50%;
-  border: 3px solid var(--gray-50); /* Or var(--white) if on dark bg */
-  z-index: 10;
-}
-
-.timeline-date {
-  position: absolute;
-  top: 0.6rem; /* Align with dot */
-  width: calc(50% - 3rem); /* Spacing from dot and edge */
-  font-size: 0.875rem; /* text-sm */
-  color: var(--gray-500);
-  font-family: 'BaselBold', 'Inter', sans-serif; /* Use bold for dates */
-  font-weight: 700;
-}
-
-.timeline-item:nth-child(odd) .timeline-date {
-  right: calc(50% + 3rem);
-  text-align: right;
-}
-
-.timeline-item:nth-child(even) .timeline-date {
-  left: calc(50% + 3rem);
-  text-align: left;
-}
-
-/* Team card specific styles (if any beyond general card styles) */
-.team-card {
- /* Add specific styles if needed, inherits .card-hover for now */
-}
-
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  .animate-float {
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-  .mobile-padding {
-    padding-left: var(--spacing-4);
-    padding-right: var(--spacing-4);
-  }
-  
-  .mobile-text-center {
-    text-align: center;
-  }
-  
-  .mobile-full-width {
-    width: 100%;
-  }
-  
-  .mobile-py {
-    padding-top: var(--spacing-8);
-    padding-bottom: var(--spacing-8);
-  }
-  
-  .mobile-mt {
-    margin-top: var(--spacing-6);
-  }
-  
-  /* Improved mobile navigation */
-  .mobile-nav-container {
-    height: auto;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--transition-normal) ease;
-  }
-  
-  .mobile-nav-container.open {
-    max-height: 100vh; /* Adjust as needed */
-  }
-
-  /* Responsive Timeline */
-  .timeline-container::before {
-    left: 1rem; /* Move line to the left */
-    transform: translateX(0);
-  }
-  .timeline-item:nth-child(odd) .timeline-content,
-  .timeline-item:nth-child(even) .timeline-content {
-    width: calc(100% - 3rem); /* Full width minus line spacing */
-    left: 2rem; /* Space from the line */
-    text-align: left;
-  }
-  .timeline-dot {
-    left: 1rem; /* Align dot with the line */
-    transform: translateX(-50%);
-  }
-  .timeline-item:nth-child(odd) .timeline-date,
-  .timeline-item:nth-child(even) .timeline-date {
-    left: 2rem; /* Align date with content */
-    width: auto;
-    text-align: left;
-    position: relative; /* Allow normal flow */
-    top: auto;
-    margin-bottom: 0.5rem; /* Space between date and content */
-    font-size: 0.75rem; /* text-xs */
-  }
-  .timeline-item:nth-child(even) .timeline-content {
-    margin-top: 0; /* Remove extra top margin for even items if date is above */
-  }
-   .timeline-content {
-    margin-top: 0.5rem; /* Add some space if date is on top */
-  }
-}
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-.max-w-7xl {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  position: relative;
-}
-
-section {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-</style>
-<script>
-tailwind.config = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      colors: {
-        blue: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8'
-        }
-      }
-    }
-  }
-}
-</script>
+<script type="module" src="/js/main.js"></script>
 </head>
 <body class="bg-white dark:bg-gray-900">
 <!-- Skip to content link for accessibility -->
@@ -617,7 +177,7 @@ tailwind.config = {
     <div class="relative" data-aos="fade-left">
       <div class="absolute -inset-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl transform -rotate-6"></div>
       <div class="absolute -inset-4 bg-blue-100 dark:bg-blue-900/40 rounded-2xl transform rotate-2"></div>
-      <img src="/placeholder.svg?height=600&width=800" alt="Elite Mutual Fund office with team members collaborating" class="relative rounded-xl shadow-xl w-full h-auto z-10">
+      <img src="/assets/images/collab.webp" alt="Elite Mutual Fund office with team members collaborating" class="relative rounded-xl shadow-xl w-full h-auto z-10">
     </div>
   </div>
 </div>
@@ -846,7 +406,7 @@ tailwind.config = {
     <!-- Team Member 1 -->
     <div class="team-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up">
       <div class="relative">
-        <img src="/placeholder.svg?height=400&width=600" alt="Sarah Johnson - CEO" class="w-full h-auto">
+        <img src="/assets/images/ceo.jpg" alt="Sarah Johnson - CEO" class="w-full h-auto">
         <div class="team-social absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600/90 to-blue-600/0 p-4">
           <div class="flex justify-center space-x-4">
             <a href="#" class="text-white hover:text-blue-100 transition-colors" aria-label="LinkedIn">
@@ -873,7 +433,7 @@ tailwind.config = {
     <!-- Team Member 2 -->
     <div class="team-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
       <div class="relative">
-        <img src="/placeholder.svg?height=400&width=600" alt="Michael Chen - CTO" class="w-full h-auto">
+        <img src="/assets/images/team2.jpg" alt="Michael Chen - CTO" class="w-full h-auto">
         <div class="team-social absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600/90 to-blue-600/0 p-4">
           <div class="flex justify-center space-x-4">
             <a href="#" class="text-white hover:text-blue-100 transition-colors" aria-label="LinkedIn">
@@ -900,7 +460,7 @@ tailwind.config = {
     <!-- Team Member 3 -->
     <div class="team-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400">
       <div class="relative">
-        <img src="/placeholder.svg?height=400&width=600" alt="Olivia Rodriguez - CFO" class="w-full h-auto">
+        <img src="/assets/images/team1.jpg" alt="Olivia Rodriguez - CFO" class="w-full h-auto">
         <div class="team-social absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600/90 to-blue-600/0 p-4">
           <div class="flex justify-center space-x-4">
             <a href="#" class="text-white hover:text-blue-100 transition-colors" aria-label="LinkedIn">
@@ -1047,7 +607,7 @@ tailwind.config = {
           "Elite Mutual Fund transformed my approach to investing. Their personalized guidance and innovative tools helped me achieve my retirement goals ahead of schedule. The team's expertise and dedication to my financial well-being have been invaluable."
         </blockquote>
         <div class="flex items-center">
-          <img src="/placeholder.svg?height=60&width=60" alt="Robert Thompson" class="w-12 h-12 rounded-full mr-4">
+          <img src="/assets/images/team3.webp" alt="Robert Thompson" class="w-12 h-12 rounded-full mr-4">
           <div>
             <p class="font-medium text-gray-900 dark:text-white">Robert Thompson</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">Retired Teacher, Client since 2015</p>
@@ -1070,7 +630,7 @@ tailwind.config = {
           "As a small business owner, I needed financial solutions that could grow with my company. Elite Mutual Fund provided exactly that. Their team took the time to understand my business needs and created a customized investment strategy that has yielded impressive returns."
         </blockquote>
         <div class="flex items-center">
-          <img src="/placeholder.svg?height=60&width=60" alt="Jennifer Martinez" class="w-12 h-12 rounded-full mr-4">
+          <img src="/assets/images/jenii.jpg" alt="Jennifer Martinez" class="w-12 h-12 rounded-full mr-4">
           <div>
             <p class="font-medium text-gray-900 dark:text-white">Jennifer Martinez</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">Business Owner, Client since 2018</p>
@@ -1093,7 +653,7 @@ tailwind.config = {
           "I was new to investing and intimidated by the process. Elite Mutual Fund's educational resources and patient advisors helped me build confidence in my financial decisions. Their user-friendly platform makes managing my investments simple and stress-free."
         </blockquote>
         <div class="flex items-center">
-          <img src="/placeholder.svg?height=60&width=60" alt="David Wilson" class="w-12 h-12 rounded-full mr-4">
+          <img src="/assets/images/boy.jpg" alt="David Wilson" class="w-12 h-12 rounded-full mr-4">
           <div>
             <p class="font-medium text-gray-900 dark:text-white">David Wilson</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">Software Engineer, Client since 2020</p>
@@ -1148,28 +708,28 @@ tailwind.config = {
   
   <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-aos="fade-up">
     <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 flex flex-col items-center text-center">
-      <img src="/placeholder.svg?height=80&width=80" alt="Certification 1" class="h-16 w-auto mb-4">
+      <img src="/assets/images/iso.png" alt="Certification 1" class="h-16 w-auto mb-4">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">ISO 27001 Certified</h3>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
         Internationally recognized information security management standard
       </p>
     </div>
     <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 flex flex-col items-center text-center">
-      <img src="/placeholder.svg?height=80&width=80" alt="Certification 2" class="h-16 w-auto mb-4">
+      <img src="/assets/images/cfs.png" alt="Certification 2" class="h-16 w-auto mb-4">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Financial Services Certified</h3>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
         Regulated by the Financial Conduct Authority
       </p>
     </div>
     <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 flex flex-col items-center text-center">
-      <img src="/placeholder.svg?height=80&width=80" alt="Certification 3" class="h-16 w-auto mb-4">
+      <img src="/assets/images/gdpr.jpg" alt="Certification 3" class="h-16 w-auto mb-4">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">GDPR Compliant</h3>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
         Fully compliant with data protection regulations
       </p>
     </div>
     <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 flex flex-col items-center text-center">
-      <img src="/placeholder.svg?height=80&width=80" alt="Certification 4" class="h-16 w-auto mb-4">
+      <img src="/assets/images/fintech.webp" alt="Certification 4" class="h-16 w-auto mb-4">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Best Fintech Award 2024</h3>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
         Recognized for excellence in financial technology innovation
@@ -1206,7 +766,7 @@ tailwind.config = {
       <!-- Company Info -->
       <div class="col-span-1 md:col-span-1">
         <div class="flex items-center mb-6">
-          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">D</div>
+          <div class="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-xl" aria-hidden="true">E</div>
           <span class="ml-2 text-xl font-bold">Elite Mutual Fund</span>
         </div>
         <p class="text-gray-400 mb-6">
@@ -1291,130 +851,6 @@ tailwind.config = {
   </div>
 </footer>
 
-<!-- JavaScript for interactive elements -->
- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Initialize AOS animation library
-  AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100,
-    disable: 'mobile'
-  });
-  
-  // Mobile menu toggle
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-      mobileMenuButton.setAttribute('aria-expanded', !expanded);
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
-  
-  // Mobile dropdown toggle
-  const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
-  const mobileDropdown = document.getElementById('mobile-dropdown');
-  const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
-  
-  if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
-    mobileDropdownButton.addEventListener('click', () => {
-      const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
-      mobileDropdownButton.setAttribute('aria-expanded', !expanded);
-      mobileDropdown.classList.toggle('hidden');
-      mobileDropdownIcon.classList.toggle('rotate-180');
-    });
-  }
-  
-  // Dark mode toggle
-  const darkModeToggle = document.querySelector('[aria-label="Toggle dark mode"]');
-  
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      
-      // Save preference to localStorage
-      if (document.documentElement.classList.contains('dark')) {
-        localStorage.setItem('color-theme', 'dark');
-      } else {
-        localStorage.setItem('color-theme', 'light');
-      }
-    });
-  }
-  
-  // Check for saved theme preference or prefer-color-scheme
-  if (localStorage.getItem('color-theme') === 'dark' || 
-      (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-</script>
 
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize AOS animations with reduced motion preference check
-  AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100,
-    disable: 'mobile'
-  });
-  
-  // Mobile menu toggle
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-      mobileMenuButton.setAttribute('aria-expanded', !expanded);
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
-  
-  // Mobile dropdown toggle
-  const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
-  const mobileDropdown = document.getElementById('mobile-dropdown');
-  const mobileDropdownIcon = document.getElementById('mobile-dropdown-icon');
-  
-  if (mobileDropdownButton && mobileDropdown && mobileDropdownIcon) {
-    mobileDropdownButton.addEventListener('click', () => {
-      const expanded = mobileDropdownButton.getAttribute('aria-expanded') === 'true';
-      mobileDropdownButton.setAttribute('aria-expanded', !expanded);
-      mobileDropdown.classList.toggle('hidden');
-      mobileDropdownIcon.classList.toggle('rotate-180');
-    });
-  }
-  
-  // Dark mode toggle
-  const darkModeToggle = document.querySelector('[aria-label="Toggle dark mode"]');
-  
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      
-      // Save preference to localStorage
-      if (document.documentElement.classList.contains('dark')) {
-        localStorage.setItem('color-theme', 'dark');
-      } else {
-        localStorage.setItem('color-theme', 'light');
-      }
-    });
-  }
-  
-  // Check for saved theme preference or prefer-color-scheme
-  if (localStorage.getItem('color-theme') === 'dark' || 
-      (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-});
-</script>
 </body>
 </html>
