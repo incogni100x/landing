@@ -335,6 +335,36 @@ label, select, input, textarea {
 }
 
 /* Table styles */
+.mf-table th,
+.fd-table th {
+  background-color: var(--gray-50); /* Light mode bg */
+  color: var(--gray-700); /* Base text color, Tailwind utilities in HTML may override */
+  text-transform: uppercase;
+  font-size: 0.875rem; /* Tailwind 'text-sm' equivalent */
+  padding: var(--spacing-3) var(--spacing-4); /* Default padding */
+  text-align: left; /* Default text alignment */
+}
+
+.dark .mf-table th,
+.dark .fd-table th {
+  background-color: var(--gray-700); /* Dark mode bg for headers */
+  /* Text color is handled by dark:text-gray-300 in HTML */
+}
+
+.mf-table td,
+.fd-table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border-bottom: 1px solid var(--gray-200); /* Light mode border */
+  color: var(--gray-600); /* Base text color, Tailwind utilities in HTML may override */
+  font-size: 0.9375rem; /* Slightly larger than text-sm for readability */
+}
+
+.dark .mf-table td,
+.dark .fd-table td {
+  border-bottom-color: var(--gray-700); /* Dark mode border for cells */
+}
+
 .mf-table {
   width: 100%;
   border-collapse: collapse;
@@ -367,8 +397,16 @@ label, select, input, textarea {
   background-color: var(--gray-50);
 }
 
+.dark .mf-table tbody tr:nth-child(even) {
+  background-color: var(--gray-800); /* Adjusted for dark mode consistency */
+}
+
 .mf-table tbody tr:hover {
   background-color: var(--primary-50);
+}
+
+.dark .mf-table tbody tr:hover {
+  background-color: var(--gray-700); /* Dark mode hover for mf-table rows */
 }
 
 /* Modal styles */
@@ -498,4 +536,13 @@ input[type="range"]::-moz-range-track {
   cursor: pointer;
   background: var(--gray-200);
   border-radius: var(--radius-sm);
+}
+
+/* Custom background for Investment Options section */
+.investment-options-background {
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%); /* Light mode sky blue */
+}
+
+.dark .investment-options-background {
+  background: linear-gradient(135deg, var(--gray-700) 0%, var(--gray-800) 100%); /* Dark mode light dark blue */
 }
