@@ -274,7 +274,6 @@ h1, h2, h3, h4, h5, h6,
 .mf-table th, .fd-table th,
 #initial-investment, #return-rate, #returns-earned, #tax-amount, #final-amount,
 #interest-rate,
-button:not(.nav-link),
 .accordion-header span,
 .skip-to-content:focus, /* Ensure skip link is bold */
 .text-gradient /* Ensure text gradient is bold */ {
