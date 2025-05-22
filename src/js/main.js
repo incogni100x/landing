@@ -60,6 +60,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Initialize Swiper for Trusted By section
+  const trustedBySwiperElement = document.querySelector('.trusted-by-swiper');
+  if (trustedBySwiperElement) {
+    const trustedBySwiper = new Swiper(trustedBySwiperElement, {
+      modules: [Autoplay, Pagination],
+      loop: true,
+      slidesPerView: 1, // Show 1 logo at a time
+      autoplay: {
+        delay: 2000, // Adjusted delay to match your example
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      pagination: {
+        el: '.trusted-by-pagination',
+        clickable: true,
+      },
+      // Breakpoints are not strictly necessary if slidesPerView is always 1
+      // but we can keep them if you plan to change slidesPerView for other sections later
+      // For now, I'll simplify by removing them as slidesPerView is 1 across all.
+      // breakpoints: {
+      //   640: {
+      //     slidesPerView: 1,
+      //   },
+      //   768: {
+      //     slidesPerView: 1,
+      //   },
+      //   1024: {
+      //     slidesPerView: 1,
+      //   }
+      // }
+    });
+  }
+  
   // Mobile menu toggle with improved accessibility and animation (from inline script)
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
