@@ -9,11 +9,10 @@ import 'swiper/css/autoplay';
 import '../css/style.css';
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM fully loaded and parsed'); // Log 1
+  console.log('DOM fully loaded and parsed');
 
   // Initialize AOS animations with reduced motion preference check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
   AOS.init({
     once: true,
     duration: prefersReducedMotion ? 0 : 800,
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       slidesPerView: 1,
       spaceBetween: 30,
-      loop: slides.length >= 2, // Simplified loop condition
+      loop: slides.length >= 2,
       autoplay: {
         delay: 5000,
         disableOnInteraction: false,
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       breakpoints: {
         640: { slidesPerView: 1, loop: slides.length >= 2 },
-        768: { slidesPerView: 2, loop: slides.length >= 4 }, // Loop if enough for 2 views * 2
+        768: { slidesPerView: 2, loop: slides.length >= 4 },
         1024: { slidesPerView: 3, loop: slides.length > 3 },
       }
     });
@@ -162,29 +161,29 @@ document.addEventListener('DOMContentLoaded', function() {
       const target = parseInt(counter.getAttribute('data-target'));
       if (prefersReducedMotion) {
         counter.innerText = target;
-      } else {
-        let count = 0;
-        const speed = 200;
-        const increment = target / speed;
-        const updateCount = () => {
-          if (count < target) {
-            count += increment;
-            counter.innerText = Math.ceil(count);
-            requestAnimationFrame(updateCount);
-          } else {
-            counter.innerText = target;
-          }
-        };
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              updateCount();
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.5 });
-        observer.observe(counter);
+        return; 
       }
+      let count = 0;
+      const speed = 200;
+      const increment = target / speed;
+      const updateCount = () => {
+        if (count < target) {
+          count += increment;
+          counter.innerText = Math.ceil(count);
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateCount();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(counter);
     });
   }
 
@@ -204,85 +203,131 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Contact Form Modal Logic
+  // Contact Form Logic (Replaces Form with Status Message)
+  const contactFormSection = document.getElementById('contact-form-section');
   const contactForm = document.getElementById('contact-page-form');
-  const confirmationModal = document.getElementById('confirmation-modal');
-  const closeModalButton = document.getElementById('close-confirmation-modal');
-  const modalIconContainer = document.getElementById('modal-icon-container');
-  const modalIconSvg = document.getElementById('modal-icon-svg');
-  const modalTitleElement = document.getElementById('modal-title-element');
-  const modalMessageElement = document.getElementById('modal-message-element');
+  const formStatusMessageSection = document.getElementById('form-status-message');
 
-  console.log('Contact form element (inside DOMContentLoaded):', contactForm);
-  console.log('Confirmation modal element (inside DOMContentLoaded):', confirmationModal);
-  console.log('Close modal button (inside DOMContentLoaded):', closeModalButton);
+  console.log('Contact form section:', contactFormSection);
+  console.log('Contact form element:', contactForm);
+  console.log('Form status message section:', formStatusMessageSection);
 
-  if (contactForm && confirmationModal && closeModalButton && modalIconContainer && modalIconSvg && modalTitleElement && modalMessageElement) {
-    console.log('All contact form related elements found. Setting up modal functions and listeners...');
+  if (contactFormSection && contactForm && formStatusMessageSection) {
+    console.log('All elements for form replacement found. Setting up...');
 
-    const successIconPath = "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z";
-    const errorIconPath = "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z";
+    const successIconSvg = `
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-5">
+        <svg class="h-10 w-10 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>`;
 
-    const showModal = (isSuccess, title, message) => {
-      console.log('showModal called with:', isSuccess, title, message);
-      modalTitleElement.textContent = title;
-      modalMessageElement.textContent = message;
+    const errorIconSvg = `
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-5">
+        <svg class="h-10 w-10 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+      </div>`;
 
-      modalIconContainer.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'bg-red-100', 'dark:bg-red-900/30');
-      modalIconSvg.classList.remove('text-green-600', 'dark:text-green-400', 'text-red-600', 'dark:text-red-400');
+    const displayFormStatus = (isSuccess, titleText, messageData) => {
+      if (!formStatusMessageSection || !contactFormSection) {
+        console.error('Form status section or contact form section not found for displayFormStatus');
+        return;
+      }
       
-      const iconPathEl = modalIconSvg.querySelector('path');
+      const iconHtml = isSuccess ? successIconSvg : errorIconSvg;
+      const titleColor = isSuccess ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+
+      let statusHTML = '';
 
       if (isSuccess) {
-        modalIconContainer.classList.add('bg-green-100', 'dark:bg-green-900/30');
-        modalIconSvg.classList.add('text-green-600', 'dark:text-green-400');
-        if (iconPathEl) iconPathEl.setAttribute('d', successIconPath);
+        // messageData for success will be an object: { primaryMessage: string, userEmail: string, timelineIntro: string, timeline: array of objects }
+        statusHTML = `
+          ${iconHtml}
+          <h2 class="text-2xl font-bold mb-2 ${titleColor}">${titleText}</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">${messageData.primaryMessage.replace(/\n/g, '<br>')}</p>
+          
+          <div class="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg my-6 text-left">
+            <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-2">Email Confirmation Sent</h3>
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+              We've sent a confirmation email to <strong>${messageData.userEmail}</strong>. 
+              Please check your email (and spam/junk folder) for a copy of your message and our response timeline.
+            </p>
+          </div>
+
+          <div class="my-8 text-left">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">${messageData.timelineIntro}</h3>
+            <ol class="relative border-l border-gray-200 dark:border-gray-700 space-y-6">
+              ${messageData.timeline.map((item, index) => `
+                <li class="ml-6">
+                  <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-800 dark:bg-blue-900">
+                    <span class="font-bold text-blue-600 dark:text-blue-300">${index + 1}</span>
+                  </span>
+                  <h4 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">${item.title}</h4>
+                  <p class="text-sm font-normal text-gray-500 dark:text-gray-400">${item.description}</p>
+                </li>
+              `).join('')}
+            </ol>
+          </div>
+          
+          <button id="back-to-home-button" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Back to Homepage
+          </button>
+        `;
       } else {
-        modalIconContainer.classList.add('bg-red-100', 'dark:bg-red-900/30');
-        modalIconSvg.classList.add('text-red-600', 'dark:text-red-400');
-        if (iconPathEl) iconPathEl.setAttribute('d', errorIconPath);
+        // messageData for error is just the errorMessage string
+        statusHTML = `
+          ${iconHtml}
+          <h2 class="text-2xl font-bold mb-3 ${titleColor}">${titleText}</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">${messageData.replace(/\n/g, '<br>')}</p>
+          <button id="try-again-button" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
+            Try Again
+          </button>
+        `;
       }
 
-      // Use .active class as defined in style.css
-      confirmationModal.classList.add('active'); 
+      formStatusMessageSection.innerHTML = statusHTML;
 
-      // We still want the immediate opacity/scale for the animation start point if needed,
-      // though .active should handle visibility and final opacity/scale.
-      // Let's ensure the base Tailwind classes for the hidden state are definitely removed.
-      confirmationModal.classList.remove('invisible', 'opacity-0');
-      const modalContent = confirmationModal.querySelector('.modal-content');
-      if (modalContent) {
-        modalContent.classList.remove('scale-95');
-        // The .modal.active .modal-content rule in CSS should handle scaling to 1
+      if (isSuccess) {
+        const backButton = formStatusMessageSection.querySelector('#back-to-home-button');
+        if (backButton) {
+          backButton.onclick = () => {
+            window.location.href = 'index.html'; // Or your homepage URL
+          };
+        }
+      } else {
+        const tryAgainButton = formStatusMessageSection.querySelector('#try-again-button');
+        if (tryAgainButton) {
+          tryAgainButton.onclick = () => {
+            formStatusMessageSection.classList.add('hidden');
+            formStatusMessageSection.innerHTML = ''; // Clear it
+            contactFormSection.classList.remove('hidden');
+             if (submitButton) { 
+               submitButton.disabled = false;
+               submitButton.innerHTML = originalButtonContent;
+             }
+          };
+        }
       }
-    };
 
-    const hideModal = () => {
-      console.log('hideModal called');
-      // Remove .active class
-      confirmationModal.classList.remove('active');
-
-      // Optionally, re-add Tailwind initial hidden states if .active is the sole controller
-      // For now, let's assume .active removal is enough if CSS is set up for it.
-      // confirmationModal.classList.add('invisible', 'opacity-0'); 
-      // const modalContent = confirmationModal.querySelector('.modal-content');
-      // if (modalContent) {
-      //   modalContent.classList.add('scale-95');
-      // }
+      contactFormSection.classList.add('hidden');
+      formStatusMessageSection.classList.remove('hidden');
+      
+      if (formStatusMessageSection.hasAttribute('data-aos')) {
+         AOS.refreshHard(); 
+      }
     };
 
     const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton ? submitButton.innerHTML : 'Send Message';
-
+    let originalButtonContent = submitButton ? submitButton.innerHTML : 'Send Message'; // Store initial button content
+    
     contactForm.addEventListener('submit', async function(event) {
       console.log('Contact form submitted! Event listener triggered.');
       event.preventDefault();
 
-      let originalButtonContent = '';
       if (submitButton) {
-        originalButtonContent = submitButton.innerHTML; // Store original content
+        // originalButtonContent is already stored, no need to update it here again
         submitButton.disabled = true;
-        // Replace text with a spinner SVG
         submitButton.innerHTML = `
           <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -292,82 +337,88 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
       }
 
-      const firstName = document.getElementById('first-name').value;
-      const lastName = document.getElementById('last-name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const subject = document.getElementById('subject').value;
-      const message = document.getElementById('message').value;
-      const privacyAgreed = document.getElementById('privacy').checked;
+      // Hide any previous status messages before new submission
+      // and ensure form section is visible if it was hidden by a previous error.
+      if (!formStatusMessageSection.classList.contains('hidden')) {
+          formStatusMessageSection.classList.add('hidden');
+      }
+      if (contactFormSection.classList.contains('hidden')) {
+          contactFormSection.classList.remove('hidden');
+      }
+
+
+      const formDataPayload = {
+        first_name: document.getElementById('first-name').value,
+        last_name: document.getElementById('last-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value,
+        privacy_agreed: document.getElementById('privacy').checked
+      };
 
       try {
         const response = await fetch('https://gdjtzahijnlncmluraaj.supabase.co/functions/v1/contact-form', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            phone: phone,
-            subject: subject,
-            message: message,
-            privacy_agreed: privacyAgreed
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formDataPayload)
         });
 
         if (response.ok) {
-          showModal(
+          const userEmail = formDataPayload.email; // Get email from the submitted form data
+          displayFormStatus(
             true, 
-            'Message Sent!', 
-            'Thank you for reaching out! We have received your message and sent a confirmation to your email. Please check your inbox (and spam/junk folder). You can reply to that email if you need to add more details.'
+            'Message Sent Successfully!', 
+            {
+              primaryMessage: 'Thank you for reaching out to DeliFin. We\'ve received your message and will get back to you within 24 hours.',
+              userEmail: userEmail,
+              timelineIntro: "What Happens Next?",
+              timeline: [
+                {
+                  title: "Message Review",
+                  description: "Our support team will review your message and determine the best expert to assist you with your financial needs."
+                },
+                {
+                  title: "Expert Response",
+                  description: "Within 24 hours, one of our financial advisors will reach out to you with personalized guidance and solutions."
+                },
+                {
+                  title: "Follow-up Support",
+                  description: "We'll continue to support you throughout your financial journey with ongoing advice and assistance."
+                }
+              ]
+            }
           );
           contactForm.reset();
         } else {
           let errorMessage = 'Message failed to send. Please try again.';
           try {
             const errorResult = await response.json();
-            if (errorResult && errorResult.error) {
-              errorMessage = errorResult.error.message || errorResult.error;
-            } else if (errorResult && errorResult.message) {
-              errorMessage = errorResult.message;
-            } else if (response.statusText) {
-              errorMessage = `Error ${response.status}: ${response.statusText}`;
-            }
-          } catch (e) {
-            // If parsing error JSON fails, use the generic message
-          }
-          showModal(false, 'Submission Failed', errorMessage);
+            if (errorResult && errorResult.error) { errorMessage = errorResult.error.message || errorResult.error; }
+            else if (errorResult && errorResult.message) { errorMessage = errorResult.message; }
+            else if (response.statusText) { errorMessage = `Error ${response.status}: ${response.statusText}`; }
+          } catch (e) { /* Use generic message */ }
+          displayFormStatus(false, 'Submission Failed', errorMessage);
+          // When an error occurs, the form is hidden and status shown. 
+          // Submit button will be re-enabled in finally, but form remains hidden.
+          // Consider adding a "Try Again" button in displayFormStatus for errors.
         }
       } catch (err) {
         console.error('Contact form submission error:', err);
-        showModal(false, 'Error', 'An error occurred while sending your message. Please try again later.');
+        displayFormStatus(false, 'Error', 'An error occurred while sending your message. Please try again later.');
       } finally {
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.innerHTML = originalButtonContent; // Restore original content
+          submitButton.innerHTML = originalButtonContent;
+          // If an error occurred and the form was replaced by status,
+          // the button is restored but remains hidden with the form.
+          // This is why a "Try Again" button in the status message would be good for errors.
         }
-      }
-    });
-
-    closeModalButton.addEventListener('click', hideModal);
-
-    confirmationModal.addEventListener('click', function(event) {
-      if (event.target === confirmationModal) {
-        hideModal();
-      }
-    });
-
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && confirmationModal.classList.contains('visible')) {
-        hideModal();
       }
     });
 
   } else {
-    console.warn('Contact form or modal elements not found. Modal functionality will not be available.');
+    console.warn('Key elements for contact form (form section, form, or status message section) not found. Functionality will be limited.');
   }
-  // End of Contact Form Modal Logic
 
 }); // End of DOMContentLoaded
