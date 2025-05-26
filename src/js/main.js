@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
             true, 
             'Message Sent Successfully!', 
             {
-              primaryMessage: 'Thank you for reaching out to DeliFin. We\'ve received your message and will get back to you within 24 hours.',
+              primaryMessage: 'Thank you for reaching out to Elite Mutual Fund. We\'ve received your message and will get back to you within 24 hours.',
               userEmail: userEmail,
               timelineIntro: "What Happens Next?",
               timeline: [
