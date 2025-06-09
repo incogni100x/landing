@@ -14,6 +14,65 @@
   <!-- Vite entry point -->
   <link rel="stylesheet" href="/css/style.css" />
   
+  <style>
+    /* Main container for the widget */
+    #google_translate_element {
+      text-align: center;
+    }
+    
+    /* Style for the button */
+    .goog-te-gadget-simple {
+      background-color: #f8f9fa;
+      border: 1px solid #d6d9de;
+      padding: 8px 12px;
+      border-radius: 9999px; /* Pill shape */
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow .15s ease-in-out;
+    }
+    
+    .goog-te-gadget-simple:hover {
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    /* Style for the text (e.g., "Danish") */
+    .goog-te-gadget-simple .goog-te-menu-value,
+    .goog-te-gadget-simple .goog-te-menu-value:hover {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a73e8 !important; /* Google Blue */
+      text-decoration: none;
+    }
+    
+    /* Custom arrow icon */
+    .goog-te-gadget-simple .goog-te-gadget-icon {
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 24 24" fill="%231a73e8"%3E%3Cpath d="M7 10l5 5 5-5z"/%3E%3C/svg%3E') !important;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 20px;
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+    }
+    
+    .goog-te-gadget-simple img {
+        display: none;
+    }
+    
+    /* This is to hide the full-width bar at the top after translation */
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+    }
+    
+    html, body {
+      top: 0px !important;
+      position: static !important;
+      overflow: visible !important;
+    }
+  </style>
 </head>
 <body class="bg-white dark:bg-gray-900">
   <!-- Skip to content link for accessibility -->
@@ -110,21 +169,19 @@
       <!-- Mobile More Dropdown -->
       <div class="relative">
         <button class="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors" id="mobile-dropdown-button" aria-expanded="false" aria-controls="mobile-dropdown">
-          More
+          <span>More</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300" id="mobile-dropdown-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
         <div class="hidden mt-1 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 space-y-2 px-2 py-2" id="mobile-dropdown" role="menu">
           <a href="contact-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Contact Us</a>
-        <a href="about-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">About Us</a>
-        <a href="privacy-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Privacy Policy</a>
-        <a href="terms-of-service.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Terms of Service</a>
-        <a href="cookie-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Cookie Policy</a>
-  
+          <a href="about-us.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">About Us</a>
+          <a href="privacy-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Privacy Policy</a>
+          <a href="terms-of-service.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Terms of Service</a>
+          <a href="cookie-policy.html" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg" role="menuitem">Cookie Policy</a>
         </div>
       </div>
       
-        
-        <div class="pt-2">
+      <div class="pt-2">
           <a href="https://app.elitemf.net/register" class="block w-full text-center px-3 py-2.5 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             Get Started
           </a>
@@ -197,14 +254,11 @@
               <span class="word" style="animation-delay: 400ms;">for</span>
               <span class="word ml-2 md:ml-3" style="animation-delay: 600ms;">a</span>
               <span class="word ml-2 md:ml-3" style="animation-delay: 800ms;">Secure</span>
-            </div>
-            <div class="block mt-2">
-              <span class="word" style="animation-delay: 1000ms;">Financial</span>
-              <span class="word ml-2 md:ml-3" style="animation-delay: 1200ms;">Future</span>
+              <span class="word ml-2 md:ml-3" style="animation-delay: 1000ms;">Future</span>
             </div>
           </h1>
-          <p class="mt-6 text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
-            Grow your wealth with our expert-backed investment solutions. Start your journey to financial freedom today.
+          <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-blue-100">
+            Your Future, Our Priority. Achieve financial freedom with our expert guidance and tailored investment solutions.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://app.elitemf.net/register" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-base font-medium shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
@@ -860,6 +914,7 @@
             </a>
             
           </div>
+          <div id="google_translate_element" class="mt-6"></div>
         </div>
         
         <!-- Quick Links -->
@@ -916,5 +971,34 @@
   <!-- Scripts -->
   <script type="module" src="/js/main.js"></script>
   
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,zh-CN,ja,ko,ru,ar,pt', // English, Spanish, French, German, Chinese (Simplified), Japanese, Korean, Russian, Arabic, Portuguese
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- This script can interfere with the widget's display -->
+  <!--
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      const googleTranslateElement = document.getElementById('google_translate_element');
+      const observer = new MutationObserver(function(mutations) {
+        const translateSelect = document.querySelector('.goog-te-gadget-simple');
+        if (translateSelect) {
+          googleTranslateElement.appendChild(translateSelect);
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
+  -->
+
 </body>
 </html>
